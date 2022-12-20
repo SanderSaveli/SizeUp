@@ -6,20 +6,24 @@ public class SceneLoader : MonoBehaviour
 {
     private SaveLoadSystem loadSystem;
 
-    private ThemeRepository themeRepository;
-    private FigureRepository figureRepository;
+    public ThemeRepository themeRepository;
+    public FigureRepository figureRepository;
+
+    public ThemeInitializer themeInitializer;
 
     private void Awake()
     {
         Initialize();
         LoadDataToRepository();
+        PaintAllToThemeColor();
     }
 
     private void Initialize()
     {
         loadSystem = new SaveLoadSystem();
-        themeRepository = FindObjectOfType<ThemeRepository>();
-        figureRepository = FindObjectOfType<FigureRepository>();
+        //themeRepository = FindObjectOfType<ThemeRepository>();
+        //figureRepository = FindObjectOfType<FigureRepository>();
+        //themeInitializer = FindObjectOfType<ThemeInitializer>();
     }
 
     private void LoadDataToRepository() 
@@ -28,5 +32,12 @@ public class SceneLoader : MonoBehaviour
         themeRepository.loadData(save.GetThemeRepositoryData());
         figureRepository.LoadData(save.GetFigureRepositoryData());
     } 
+
+    private void PaintAllToThemeColor() 
+    {
+        themeInitializer.IniThemeOnObjects(
+            themeRepository.GetActiveTheme()
+            );
+    }
 
 }
