@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBall : Ball
+public class ShopButton : Button
 {
-    public void IniTheme(PlayerThemePresets presets)
+    public override void Click()
     {
-
+        Debug.Log("Shop");
     }
 }

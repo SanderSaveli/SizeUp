@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 [Serializable]
@@ -15,9 +14,8 @@ public class Save
     }
 
     [Serializable]
-    public struct ThemeRepositoryData 
+    public struct ThemeRepositoryData
     {
-        public Theme[] Themes;
         public int ActiveThemeIndex;
         public bool[] IsThemeOpen;
     }
@@ -28,7 +26,7 @@ public class Save
         public int ActiveFigureIndex;
     }
 
-    public ThemeRepositoryData GetThemeRepositoryData() 
+    public ThemeRepositoryData GetThemeRepositoryData()
     {
         return _themeRepositoryData;
     }
@@ -38,16 +36,15 @@ public class Save
         return _figureRepositoryData;
     }
 
-    private void CollectThemeRepositoryData() 
+    private void CollectThemeRepositoryData()
     {
         ThemeRepository themeRepository = GameObject.FindObjectOfType<ThemeRepository>();
         _themeRepositoryData = new ThemeRepositoryData();
-        _themeRepositoryData.Themes = themeRepository.Themes;
         _themeRepositoryData.ActiveThemeIndex = themeRepository.ActiveThemeIndex;
         _themeRepositoryData.IsThemeOpen = themeRepository.IsThemeOpen;
-    } 
+    }
 
-    private void CollectFigureRepositoryData() 
+    private void CollectFigureRepositoryData()
     {
         FigureRepository figureRepository = GameObject.FindObjectOfType<FigureRepository>();
         _figureRepositoryData = new FigureRepositoryData();

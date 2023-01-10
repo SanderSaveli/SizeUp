@@ -16,7 +16,6 @@ public class ThemeRepository : MonoBehaviour
     }
     public void loadData(Save.ThemeRepositoryData data) 
     {
-        //this.Themes = data.Themes;
         this.ActiveThemeIndex = data.ActiveThemeIndex;
         this.IsThemeOpen = data.IsThemeOpen;
     }

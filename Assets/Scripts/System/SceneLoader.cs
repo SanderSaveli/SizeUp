@@ -1,43 +1,83 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneLoader : MonoBehaviour
+public class SceneLoader : MonoBehaviour, IGameSartHandler, IGameEndHandler
 {
-    private SaveLoadSystem loadSystem;
+    public Transform FigurePosition;
 
-    public ThemeRepository themeRepository;
-    public FigureRepository figureRepository;
+    private SaveLoadSystem _loadSystem;
 
-    public ThemeInitializer themeInitializer;
+    private ThemeRepository _themeRepository;
+    private FigureRepository _figureRepository;
+
+    private ThemeInitializer _themeInitializer;
+
+    private SceneStateChanger _sceneStateChanger;
 
     private void Awake()
     {
         Initialize();
+        LoadScene(new SateMenu());
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Subscribe(this);
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe(this);
+    }
+
+    public void LoadScene(ISceneState state)
+    {
         LoadDataToRepository();
+        SpawnActiveFigure();
         PaintAllToThemeColor();
+        SetNewSceneState(state);
     }
 
     private void Initialize()
     {
-        loadSystem = new SaveLoadSystem();
-        //themeRepository = FindObjectOfType<ThemeRepository>();
-        //figureRepository = FindObjectOfType<FigureRepository>();
-        //themeInitializer = FindObjectOfType<ThemeInitializer>();
+        _loadSystem = new SaveLoadSystem();
+        _sceneStateChanger = new SceneStateChanger();
+        _themeRepository = FindObjectOfType<ThemeRepository>();
+        _figureRepository = FindObjectOfType<FigureRepository>();
+        _themeInitializer = FindObjectOfType<ThemeInitializer>();
     }
 
-    private void LoadDataToRepository() 
-    { 
-        Save save = loadSystem.GetCurrentSave();
-        themeRepository.loadData(save.GetThemeRepositoryData());
-        figureRepository.LoadData(save.GetFigureRepositoryData());
-    } 
-
-    private void PaintAllToThemeColor() 
+    private void LoadDataToRepository()
     {
-        themeInitializer.IniThemeOnObjects(
-            themeRepository.GetActiveTheme()
+        _loadSystem.LoadGame();
+        Save save = _loadSystem.GetCurrentSave();
+        _themeRepository.loadData(save.GetThemeRepositoryData());
+        _figureRepository.LoadData(save.GetFigureRepositoryData());
+    }
+
+    private void SpawnActiveFigure()
+    {
+        Instantiate(_figureRepository.GetActiveFigure(), FigurePosition);
+    }
+
+    private void PaintAllToThemeColor()
+    {
+        _themeInitializer.IniThemeOnObjects(
+            _themeRepository.GetActiveTheme()
             );
     }
 
+    private void SetNewSceneState(ISceneState newSceneState) 
+    {
+        _sceneStateChanger.ChangeSceneState(newSceneState);
+    }
+
+    void IGameSartHandler.GameStart()
+    {
+        _sceneStateChanger.ChangeSceneState(new StateGame());
+    }
+
+    void IGameEndHandler.GameEnd()
+    {
+        _sceneStateChanger.ChangeSceneState(new StateDeathMenu());
+    }
 }

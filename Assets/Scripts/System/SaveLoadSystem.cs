@@ -25,7 +25,7 @@ public class SaveLoadSystem
     public void LoadGame()
     {
         if (File.Exists(_saveFilePath))
-            return;
+            CreateFirstSave();
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream fileStream = new FileStream(_saveFilePath, FileMode.Open);
@@ -35,8 +35,15 @@ public class SaveLoadSystem
         currentSave = save;
     }
 
+    public void CreateFirstSave() 
+    { 
+        currentSave = new Save();
+        SaveGame();
+    }
+
     public Save GetCurrentSave()
     {
         return currentSave;
     }
+
 }
