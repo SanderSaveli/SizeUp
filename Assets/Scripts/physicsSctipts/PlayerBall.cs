@@ -1,29 +1,69 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBall : Ball
+public class PlayerBall : Ball, ITouchHandler
 {
     [SerializeField] private float SizeIncreasePerSecondInPercent;
-    private bool _isIncreases;
+    [SerializeField] private float SizeDecreasePerSecondInPercent;
+    private float NormalSize;
+    private bool _isRise;
 
-    public void StartPressing()
+    private void OnEnable()
     {
-        _isIncreases = true;
+        EventBus.Subscribe(this);
+        NormalSize = transform.localScale.x;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe(this);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(_isRise && collision.gameObject.GetComponent<EnemyBall>() != null) 
+        {
+            Death();
+        }
+    }
+
+    public void IniTheme(PlayerThemePresets presets)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = presets.PlayerBall;
+    }
+
+    void ITouchHandler.StartTouch()
+    {
+        _isRise = true;
+        StopCoroutine(BackToNormalSize());
         StartCoroutine(Increas());
     }
-    public void StopPressing()
+
+    void ITouchHandler.EndTouch()
     {
-        _isIncreases = false;
+        _isRise = false;
+        StopAllCoroutines();
+        StartCoroutine(BackToNormalSize());
     }
 
     private IEnumerator Increas()
     {
-        while (_isIncreases)
+        while (_isRise)
         {
             ChangeSize();
             yield return null;
         }
+    }
+
+    private IEnumerator BackToNormalSize() 
+    { 
+        while(transform.localScale.x > NormalSize && !_isRise) 
+        {
+            transform.localScale *= 1 - SizeDecreasePerSecondInPercent * Time.deltaTime / 100;
+            yield return null;
+        }
+        if(!_isRise)
+            transform.localScale = new Vector3(NormalSize, NormalSize, NormalSize);
     }
 
     private void ChangeSize()
@@ -31,8 +71,9 @@ public class PlayerBall : Ball
         float ScaleCoefficent = SizeIncreasePerSecondInPercent * Time.deltaTime / 100 + 1;
         transform.localScale *= ScaleCoefficent;
     }
-    public void IniTheme(PlayerThemePresets presets)
+
+    private void Death() 
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = presets.PlayerBall;
+        EventBus.RaiseEvent<IGameEndHandler>(it => it.GameEnd());
     }
 }

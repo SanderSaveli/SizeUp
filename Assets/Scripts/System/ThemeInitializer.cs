@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThemeInitializer : MonoBehaviour
+public class ThemeInitializer
 {
     private Button[] _buttons;
     private EnemyBall[] _enemyBalls;
@@ -26,11 +26,11 @@ public class ThemeInitializer : MonoBehaviour
         _background.IniTheme(theme.BackgroundTheme);
     }
 
-    public void FindAllObjectsVaryingFromTheme() 
+    public void FindAllObjectsVaryingFromTheme()
     {
-        _buttons = FindObjectsOfType<Button>();
-        _enemyBalls = FindObjectsOfType<EnemyBall>();
-        _playerBall = FindObjectOfType<PlayerBall>();
-        _background = FindObjectOfType<Background>();
+        _buttons = GameObject.FindObjectsOfType<Button>();
+        _enemyBalls = GameObject.FindObjectsOfType<EnemyBall>();
+        _playerBall = GameObject.FindObjectOfType<PlayerBall>();
+        _background = GameObject.FindObjectOfType<Background>();
     }
 }

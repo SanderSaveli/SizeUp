@@ -1,49 +1,32 @@
 using UnityEngine;
 
-public class SceneLoader : MonoBehaviour, IGameSartHandler, IGameEndHandler
+public class SceneLoader: MonoBehaviour 
 {
-    public Transform FigurePosition;
-
-    private SaveLoadSystem _loadSystem;
-
     private ThemeRepository _themeRepository;
     private FigureRepository _figureRepository;
 
+    [SerializeField] private Transform FigurePosition;
+
+    private SaveLoadSystem _loadSystem;
     private ThemeInitializer _themeInitializer;
 
-    private SceneStateChanger _sceneStateChanger;
+    private Transform _figurePosition;
 
-    private void Awake()
+    public void Awake()
     {
-        Initialize();
-        LoadScene(new SateMenu());
+        _themeRepository = FindObjectOfType<ThemeRepository>();
+        _figureRepository = FindObjectOfType<FigureRepository>();
+        _figurePosition = FigurePosition;
+        _themeInitializer = new ThemeInitializer();
+        _loadSystem = new SaveLoadSystem();
+        LoadScene();
     }
 
-    private void OnEnable()
-    {
-        EventBus.Subscribe(this);
-    }
-
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe(this);
-    }
-
-    public void LoadScene(ISceneState state)
+    public void LoadScene()
     {
         LoadDataToRepository();
         SpawnActiveFigure();
         PaintAllToThemeColor();
-        SetNewSceneState(state);
-    }
-
-    private void Initialize()
-    {
-        _loadSystem = new SaveLoadSystem();
-        _sceneStateChanger = new SceneStateChanger();
-        _themeRepository = FindObjectOfType<ThemeRepository>();
-        _figureRepository = FindObjectOfType<FigureRepository>();
-        _themeInitializer = FindObjectOfType<ThemeInitializer>();
     }
 
     private void LoadDataToRepository()
@@ -56,7 +39,7 @@ public class SceneLoader : MonoBehaviour, IGameSartHandler, IGameEndHandler
 
     private void SpawnActiveFigure()
     {
-        Instantiate(_figureRepository.GetActiveFigure(), FigurePosition);
+        Instantiate(_figureRepository.GetActiveFigure(), _figurePosition);
     }
 
     private void PaintAllToThemeColor()
@@ -64,20 +47,5 @@ public class SceneLoader : MonoBehaviour, IGameSartHandler, IGameEndHandler
         _themeInitializer.IniThemeOnObjects(
             _themeRepository.GetActiveTheme()
             );
-    }
-
-    private void SetNewSceneState(ISceneState newSceneState) 
-    {
-        _sceneStateChanger.ChangeSceneState(newSceneState);
-    }
-
-    void IGameSartHandler.GameStart()
-    {
-        _sceneStateChanger.ChangeSceneState(new StateGame());
-    }
-
-    void IGameEndHandler.GameEnd()
-    {
-        _sceneStateChanger.ChangeSceneState(new StateDeathMenu());
     }
 }

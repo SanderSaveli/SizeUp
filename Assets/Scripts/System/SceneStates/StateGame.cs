@@ -1,11 +1,13 @@
+using UnityEngine;
+
 public class StateGame : ISceneState
 {
     private InputManager _inputManager;
 
     public void Enter()
     {
-        //_inputManager.enabled = true;
-        UnityEngine.Debug.Log("GameStaet");
+        _inputManager = GameObject.FindObjectOfType<InputManager>();
+        _inputManager.enabled = true;
     }
 
     public void Exit()

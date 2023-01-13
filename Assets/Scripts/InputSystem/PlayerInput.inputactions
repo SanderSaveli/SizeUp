@@ -2,28 +2,28 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "Touch",
-            "id": "e33d91cc-7ff6-40aa-bdc8-07f8cf0e6045",
+            "name": "Player",
+            "id": "007d17f8-07c7-4b3b-b502-0eb95c3036c8",
             "actions": [
                 {
-                    "name": "PrimaryContact",
-                    "type": "Button",
-                    "id": "25f3c656-9bb3-482f-9f59-f4557be46ea9",
+                    "name": "Touch",
+                    "type": "PassThrough",
+                    "id": "f5411fa3-4c66-41da-bfeb-cc01e8efbbfe",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "aacdbca5-26d8-4963-b969-06cb1715c383",
-                    "path": "<Touchscreen>/touch1/press",
+                    "id": "afdad2c4-851f-4455-af3e-2af79b3182ce",
+                    "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryContact",
+                    "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

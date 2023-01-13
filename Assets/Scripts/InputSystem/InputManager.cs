@@ -27,18 +27,16 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        _playerInput.Touch.PrimaryContact.started += ctx => StartTouchPrimary();
-        _playerInput.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary();
+        _playerInput.Player.Touch.started += ctx => StartTouchPrimary();
+        _playerInput.Player.Touch.canceled += ctx => EndTouchPrimary();
     }
 
     private void StartTouchPrimary()
     {
-        if (OnStartTouch != null)
-            OnStartTouch();
+        EventBus.RaiseEvent<ITouchHandler>(it => it.StartTouch());
     }
     private void EndTouchPrimary()
     {
-        if (OnEndTouch != null)
-            OnEndTouch();
+        EventBus.RaiseEvent<ITouchHandler>(it => it.EndTouch());
     }
 }

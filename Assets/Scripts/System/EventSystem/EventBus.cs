@@ -62,12 +62,10 @@ public static class EventBus
             return s_CashedSubscriberTypes[type];
 
         List<Type> subscriberTypes = type
-            .GetInterfaces()
-            //.Where(it =>
-            //        it.IsAssignableFrom(typeof(IGlobalSubscriber)) &&
-            //        it != typeof(IGlobalSubscriber))
+            .GetInterfaces().Where(
+            it => it.GetInterfaces().Contains(typeof(IGlobalSubscriber)))
             .ToList();
-        Debug.Log(type.GetInterfaces().ToString());
+
         s_CashedSubscriberTypes[type] = subscriberTypes;
         return subscriberTypes;
     }

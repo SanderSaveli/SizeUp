@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SateMenu : ISceneState
+public class StateMenu : ISceneState
 {
     private Button[] buttons;
 
@@ -9,7 +9,6 @@ public class SateMenu : ISceneState
         buttons = GameObject.FindObjectsOfType<Button>();
         foreach (Button button in buttons)
         {
-            Debug.Log(button);
             button.Show();
         }
     }

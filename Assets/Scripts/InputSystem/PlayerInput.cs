@@ -24,28 +24,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Touch"",
-            ""id"": ""e33d91cc-7ff6-40aa-bdc8-07f8cf0e6045"",
+            ""name"": ""Player"",
+            ""id"": ""007d17f8-07c7-4b3b-b502-0eb95c3036c8"",
             ""actions"": [
                 {
-                    ""name"": ""PrimaryContact"",
-                    ""type"": ""Button"",
-                    ""id"": ""25f3c656-9bb3-482f-9f59-f4557be46ea9"",
+                    ""name"": ""Touch"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f5411fa3-4c66-41da-bfeb-cc01e8efbbfe"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""aacdbca5-26d8-4963-b969-06cb1715c383"",
-                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""id"": ""afdad2c4-851f-4455-af3e-2af79b3182ce"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PrimaryContact"",
+                    ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -54,9 +54,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Touch
-        m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
-        m_Touch_PrimaryContact = m_Touch.FindAction("PrimaryContact", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -113,40 +113,40 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Touch
-    private readonly InputActionMap m_Touch;
-    private ITouchActions m_TouchActionsCallbackInterface;
-    private readonly InputAction m_Touch_PrimaryContact;
-    public struct TouchActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Touch;
+    public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
-        public TouchActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PrimaryContact => m_Wrapper.m_Touch_PrimaryContact;
-        public InputActionMap Get() { return m_Wrapper.m_Touch; }
+        public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Touch => m_Wrapper.m_Player_Touch;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TouchActions set) { return set.Get(); }
-        public void SetCallbacks(ITouchActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_TouchActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @PrimaryContact.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryContact;
-                @PrimaryContact.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryContact;
-                @PrimaryContact.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryContact;
+                @Touch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
+                @Touch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
+                @Touch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
             }
-            m_Wrapper.m_TouchActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @PrimaryContact.started += instance.OnPrimaryContact;
-                @PrimaryContact.performed += instance.OnPrimaryContact;
-                @PrimaryContact.canceled += instance.OnPrimaryContact;
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
             }
         }
     }
-    public TouchActions @Touch => new TouchActions(this);
-    public interface ITouchActions
+    public PlayerActions @Player => new PlayerActions(this);
+    public interface IPlayerActions
     {
-        void OnPrimaryContact(InputAction.CallbackContext context);
+        void OnTouch(InputAction.CallbackContext context);
     }
 }
