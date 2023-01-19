@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingsButton : Button
+public class SettingsButton : Button, IMainMenuButton
 {
     public override void Click()
     {

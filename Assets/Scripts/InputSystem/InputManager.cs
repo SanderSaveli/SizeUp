@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public delegate void StartTouch();
-    public event StartTouch OnStartTouch;
-
-    public delegate void EndTouch();
-    public event StartTouch OnEndTouch;
-
     private PlayerInput _playerInput;
 
     private void Awake()

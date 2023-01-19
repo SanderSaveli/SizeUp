@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class BackgroundThemePrisets
+public class BackgroundTheme
 {
     [SerializeField] private Sprite _background;
 

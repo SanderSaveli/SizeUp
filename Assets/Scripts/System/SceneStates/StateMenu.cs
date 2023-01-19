@@ -1,22 +1,31 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StateMenu : ISceneState
 {
-    private Button[] buttons;
-
+    private List<Button> _menuButton = new List<Button>();
     public void Enter()
     {
-        buttons = GameObject.FindObjectsOfType<Button>();
-        foreach (Button button in buttons)
+        Button[] buttonsToSpawn =
+            GameObject.FindObjectOfType<ButtonRepository>()
+            .GetAllButtons()
+            .Where(it => it.GetComponent<IMainMenuButton>()!= null).ToArray();
+
+        Transform UiCanvas =
+            GameObject.FindGameObjectWithTag("UiCanvas").transform;
+
+        foreach (Button button in buttonsToSpawn)
         {
-            button.Show();
+            Button newButton = GameObject.Instantiate(button, UiCanvas);
+            _menuButton.Add(newButton);
+            _menuButton.Last().Show();
         }
     }
 
     public void Exit()
     {
-        buttons = GameObject.FindObjectsOfType<Button>();
-        foreach (Button button in buttons)
+        foreach (Button button in _menuButton)
         {
             button.Hide();
         }

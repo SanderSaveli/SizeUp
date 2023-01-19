@@ -6,9 +6,7 @@ TagManager:
   tags:
   - Wall
   - Enemy
-  - PlayButton
-  - Shop
-  - BB
+  - UiCanvas
   layers:
   - Default
   - TransparentFX

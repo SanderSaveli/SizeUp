@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBall : Ball
 {
-    public void IniTheme(EnemyThemePresets presets) 
+    public void IniTheme(EnemyTheme presets) 
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = presets.EnemyBall;
     }

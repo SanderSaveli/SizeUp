@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RestartButton : Button
+public class RestartButton : Button, IDeathMenuButton
 {
     public override void Click()
     {

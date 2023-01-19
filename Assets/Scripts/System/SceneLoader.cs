@@ -44,7 +44,7 @@ public class SceneLoader: MonoBehaviour
 
     private void PaintAllToThemeColor()
     {
-        _themeInitializer.IniThemeOnObjects(
+        _themeInitializer.IniThemeOnAllObjects(
             _themeRepository.GetActiveTheme()
             );
     }

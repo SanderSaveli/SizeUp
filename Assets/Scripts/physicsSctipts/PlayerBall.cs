@@ -21,13 +21,14 @@ public class PlayerBall : Ball, ITouchHandler
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        ChangeDirection(collision.contacts[0].normal);
         if(_isRise && collision.gameObject.GetComponent<EnemyBall>() != null) 
         {
             Death();
         }
     }
 
-    public void IniTheme(PlayerThemePresets presets)
+    public void IniTheme(PlayerTheme presets)
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = presets.PlayerBall;
     }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class ButtonThemePresets
+public class ButtonTheme
 {
     [SerializeField] private Color _buttonColor;
     [SerializeField] private Color _iconColor;

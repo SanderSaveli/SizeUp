@@ -17,8 +17,11 @@ public class SceneStateChanger
 
     public void ChangeSceneState(ISceneState newGameMode)
     {
-        _currentGameMode?.Exit();
-        newGameMode.Enter();
-        _currentGameMode = newGameMode;
+        if(_currentGameMode != newGameMode) 
+        {
+            _currentGameMode?.Exit();
+            newGameMode.Enter();
+            _currentGameMode = newGameMode;
+        }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PlayerThemePresets
+public class PlayerTheme
 {
     [SerializeField] private Sprite _playerBall;
 

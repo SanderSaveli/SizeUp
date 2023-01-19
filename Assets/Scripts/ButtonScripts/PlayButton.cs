@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Search;
-using UnityEngine;
-
-public class PlayButton : Button
+public class PlayButton : Button, IMainMenuButton
 {
     public override void Click()
     {

@@ -1,4 +1,4 @@
-public class BackToMenuButton : Button
+public class BackToMenuButton : Button, IDeathMenuButton
 {
     public override void Click()
     {

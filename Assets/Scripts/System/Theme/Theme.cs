@@ -5,15 +5,15 @@ public sealed class Theme : ScriptableObject
 {
     [SerializeField] private int _cost;
 
-    [SerializeField] private ButtonThemePresets _buttonThemePresets;
-    [SerializeField] private EnemyThemePresets _enemyThemePresets;
-    [SerializeField] private PlayerThemePresets _playerThemePresets;
-    [SerializeField] private BackgroundThemePrisets _backgroundThemePrisets;
+    [SerializeField] private ButtonTheme _buttonThemePresets;
+    [SerializeField] private EnemyTheme _enemyThemePresets;
+    [SerializeField] private PlayerTheme _playerThemePresets;
+    [SerializeField] private BackgroundTheme _backgroundThemePrisets;
 
 
     public int Cost => _cost;
-    public ButtonThemePresets ButtonTheme => _buttonThemePresets;
-    public EnemyThemePresets EnemyTheme => _enemyThemePresets;
-    public PlayerThemePresets PlayerTheme => _playerThemePresets;
-    public BackgroundThemePrisets BackgroundTheme => _backgroundThemePrisets;
+    public ButtonTheme ButtonTheme => _buttonThemePresets;
+    public EnemyTheme EnemyTheme => _enemyThemePresets;
+    public PlayerTheme PlayerTheme => _playerThemePresets;
+    public BackgroundTheme BackgroundTheme => _backgroundThemePrisets;
 }

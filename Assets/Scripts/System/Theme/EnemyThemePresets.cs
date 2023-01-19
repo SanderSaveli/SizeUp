@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class EnemyThemePresets
+public class EnemyTheme
 {
     [SerializeField] private Sprite _enemyBall;
 
