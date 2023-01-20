@@ -6,19 +6,21 @@ public class SceneLoader: MonoBehaviour
     private FigureRepository _figureRepository;
 
     [SerializeField] private Transform FigurePosition;
+    [SerializeField] private float EnemyCount;
 
     private SaveLoadSystem _loadSystem;
     private ThemeInitializer _themeInitializer;
+    private BallSpawner _ballSpawner;
 
-    private Transform _figurePosition;
+    private Transform _figurePosition => FigurePosition;
 
     public void Awake()
     {
         _themeRepository = FindObjectOfType<ThemeRepository>();
         _figureRepository = FindObjectOfType<FigureRepository>();
-        _figurePosition = FigurePosition;
-        _themeInitializer = new ThemeInitializer();
+        _ballSpawner = FindObjectOfType<BallSpawner>();
         _loadSystem = new SaveLoadSystem();
+        _themeInitializer = new ThemeInitializer();
         LoadScene();
     }
 
@@ -26,6 +28,7 @@ public class SceneLoader: MonoBehaviour
     {
         LoadDataToRepository();
         SpawnActiveFigure();
+        SpawnPlayerAndEnemy();
         PaintAllToThemeColor();
     }
 
@@ -42,6 +45,14 @@ public class SceneLoader: MonoBehaviour
         Instantiate(_figureRepository.GetActiveFigure(), _figurePosition);
     }
 
+    private void SpawnPlayerAndEnemy()
+    {
+        for (int i = 0; i < EnemyCount; i++) 
+        {
+            _ballSpawner.SpawnEnemy(FigurePosition.position);
+        }
+        _ballSpawner.SpawnPlayer(FigurePosition.position);
+    }
     private void PaintAllToThemeColor()
     {
         _themeInitializer.IniThemeOnAllObjects(

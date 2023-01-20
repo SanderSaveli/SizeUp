@@ -29,5 +29,8 @@ public class StateDeathMenu : ISceneState
         {
             button.Hide();
         }
+
+        BallSpawner ballSpawner = GameObject.FindObjectOfType<BallSpawner>();
+        ballSpawner.SpawnPlayer(new Vector3(0, 15, 0));
     }
 }

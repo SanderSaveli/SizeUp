@@ -8,10 +8,14 @@ public class PlayerBall : Ball, ITouchHandler
     private float NormalSize;
     private bool _isRise;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EventBus.Subscribe(this);
         NormalSize = transform.localScale.x;
+        PlayerTheme theme =
+            GameObject.FindObjectOfType<ThemeRepository>().GetActivePlayerTheme();
+        IniTheme(theme);
     }
 
     private void OnDisable()
@@ -76,5 +80,6 @@ public class PlayerBall : Ball, ITouchHandler
     private void Death() 
     {
         EventBus.RaiseEvent<IGameEndHandler>(it => it.GameEnd());
+        Destroy(gameObject);
     }
 }

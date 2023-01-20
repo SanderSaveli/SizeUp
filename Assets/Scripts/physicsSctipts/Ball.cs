@@ -5,6 +5,16 @@ public class Ball : MonoBehaviour, IChangeDirection
     [SerializeField] private float Speed;
     private Vector3 _direction;
 
+    protected virtual void OnEnable()
+    {
+        GetRandomDirection();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        transform.position += _direction * Speed * Time.deltaTime;
+    }
+
     public void SetSpeed(float newValue)
     {
         Speed = newValue;
@@ -13,16 +23,6 @@ public class Ball : MonoBehaviour, IChangeDirection
     public void ChangeDirection(Vector3 HitNormal)
     {
         _direction = Vector3.Reflect(_direction, HitNormal);
-    }
-
-    private void Start()
-    {
-        GetRandomDirection();
-    }
-
-    private void FixedUpdate()
-    {
-        transform.position += _direction * Speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
