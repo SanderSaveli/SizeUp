@@ -31,6 +31,6 @@ public class StateDeathMenu : ISceneState
         }
 
         BallSpawner ballSpawner = GameObject.FindObjectOfType<BallSpawner>();
-        ballSpawner.SpawnPlayer(new Vector3(0, 15, 0));
+        ballSpawner.SpawnPlayer();
     }
 }

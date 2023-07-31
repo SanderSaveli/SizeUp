@@ -2,40 +2,50 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour 
 {
-    public GameObject EnemyPrefab;
-    public GameObject PlayerPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _playerPrefab;
 
-    private float _spawnAraeRadius = 3f;
+    [SerializeField] private float _spawnAraeRadius = 3f;
+    [SerializeField] private Vector3 _spawnAreaCenter = Vector3.zero;
 
-    private const int InfiniteLoopLimiter = 100;
+    [SerializeField] private int _enemyCount = 3;
 
-    public GameObject SpawnPlayer(Vector3 position) 
+    public GameObject SpawnPlayer() 
     {
-        return SpawnBall(PlayerPrefab, position);
+        return SpawnBall(_playerPrefab, _spawnAreaCenter);
     }
-    public GameObject SpawnEnemy(Vector3 position) 
+    public GameObject SpawnEnemy() 
     {
-        return SpawnBall(EnemyPrefab, position);
+        return SpawnBall(_enemyPrefab, _spawnAreaCenter);
     }
 
     private GameObject SpawnBall(GameObject ball, Vector3 center)
     {
-        int i = 0;
-        Vector2 SpawnPosition;
-        float SphereRadius =
+        float ballRadius =
             ball.gameObject.GetComponent<CircleCollider2D>().radius;
+        Vector2 SpawnPosition = FindEmptyPlaceForBall(ballRadius);
+        return GameObject.Instantiate(ball, SpawnPosition, Quaternion.identity);
+    }
+
+    private Vector2 FindEmptyPlaceForBall(float ballRadius) 
+    {
+        int InfiniteLoopLimiter = 0;
+        Vector2 SpawnPosition;
         do
         {
-            i++;
-            SpawnPosition = Random.insideUnitSphere * _spawnAraeRadius;
+            InfiniteLoopLimiter++;
+            SpawnPosition = _spawnAreaCenter + Random.insideUnitSphere * _spawnAraeRadius;
 
-            if (i > InfiniteLoopLimiter) 
+            if (InfiniteLoopLimiter > 100)
+                throw new System.Exception("There is no empty plase for ball");
                 break;
-        } while (Physics2D.CircleCast(
-            SpawnPosition,
-            SphereRadius,
-            Vector2.zero));
+        } while (Physics2D.CircleCast(SpawnPosition, ballRadius, Vector2.zero));
+        return SpawnPosition;
+    }
 
-        return GameObject.Instantiate(ball, SpawnPosition, Quaternion.identity);
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(_spawnAreaCenter, _spawnAraeRadius);
     }
 }

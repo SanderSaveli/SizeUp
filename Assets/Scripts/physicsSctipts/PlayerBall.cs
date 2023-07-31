@@ -1,18 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using ViewElements;
 
 public class PlayerBall : Ball, ITouchHandler
 {
     [SerializeField] private float SizeIncreasePerSecondInPercent;
     [SerializeField] private float SizeDecreasePerSecondInPercent;
-    private float NormalSize;
+    private float _normalSize;
     private bool _isRise;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         EventBus.Subscribe(this);
-        NormalSize = transform.localScale.x;
+        _normalSize = transform.localScale.x;
         PlayerTheme theme =
             GameObject.FindObjectOfType<ThemeRepository>().GetActivePlayerTheme();
         IniTheme(theme);
@@ -62,13 +63,13 @@ public class PlayerBall : Ball, ITouchHandler
 
     private IEnumerator BackToNormalSize() 
     { 
-        while(transform.localScale.x > NormalSize && !_isRise) 
+        while(transform.localScale.x > _normalSize && !_isRise) 
         {
             transform.localScale *= 1 - SizeDecreasePerSecondInPercent * Time.deltaTime / 100;
             yield return null;
         }
         if(!_isRise)
-            transform.localScale = new Vector3(NormalSize, NormalSize, NormalSize);
+            transform.localScale = new Vector3(_normalSize, _normalSize, _normalSize);
     }
 
     private void ChangeSize()

@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -388,9 +388,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -557,17 +565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b8392183704ac4a81b2b0ad66de28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Figures:
-  - {fileID: 842737468946489715, guid: c2544a6177d8c054f8f4d949ea87ab63, type: 3}
-  - {fileID: 1454040989395169138, guid: 73f21dac9255e044a8c7e0ab43ba13d9, type: 3}
-  - {fileID: 5755386891392071012, guid: 7885ff6c689fa4e448dbc199e009e976, type: 3}
-  - {fileID: 7890949964051850516, guid: d107721d4ee17244e8634dc8e60f2308, type: 3}
-  - {fileID: 5230906577051842565, guid: fb76069c0c55a2e4d8af2f92f1989084, type: 3}
-  - {fileID: 805936228926504218, guid: 84411118da8c0fd40a7d97d9a9e9b174, type: 3}
-  - {fileID: 6198297026026149985, guid: f460f48086a96b44e9bb289300e899c5, type: 3}
-  - {fileID: 1678940026298297364, guid: 7b0f3ec926063cc4295f8cac8b309b0b, type: 3}
-  ActiveFigureIndex: 4
-  IsFigureOpen: 
+  <figures>k__BackingField: []
+  <activeFigureIndex>k__BackingField: 0
+  <isFigureOpen>k__BackingField: 
 --- !u!4 &895218504
 Transform:
   m_ObjectHideFlags: 0
@@ -659,7 +659,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_TargetDisplay: 0
@@ -1000,7 +1002,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 4
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
@@ -1009,7 +1011,7 @@ LightingSettings:
   m_AlbedoBoost: 1
   m_IndirectOutputScale: 1
   m_UsingShadowmask: 1
-  m_BakeBackend: 0
+  m_BakeBackend: 1
   m_LightmapMaxSize: 1024
   m_BakeResolution: 40
   m_Padding: 2
@@ -1034,13 +1036,13 @@ LightingSettings:
   m_PVRCulling: 1
   m_PVRSampling: 1
   m_PVRDirectSampleCount: 32
-  m_PVRSampleCount: 500
-  m_PVREnvironmentSampleCount: 500
+  m_PVRSampleCount: 512
+  m_PVREnvironmentSampleCount: 512
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
   m_PVRMinBounces: 2
-  m_PVREnvironmentMIS: 0
+  m_PVREnvironmentImportanceSampling: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0
   m_PVRDenoiserTypeIndirect: 0
@@ -1055,6 +1057,8 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+  m_NumRaysToShootPerTexel: -1
+  m_RespectSceneVisibilityWhenBakingGI: 0
 --- !u!1 &1609219984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1148,8 @@ GameObject:
   - component: {fileID: 1737173829}
   - component: {fileID: 1737173828}
   - component: {fileID: 1737173830}
+  - component: {fileID: 1737173831}
+  - component: {fileID: 1737173832}
   m_Layer: 0
   m_Name: SystemObjects
   m_TagString: Untagged
@@ -1220,10 +1226,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f15645e462b74b4ba7a5360a1ae616f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 5779922515090321825, guid: ac19a28a32b1b554da12f1454d53d8a7,
+  _enemyPrefab: {fileID: 5779922515090321825, guid: ac19a28a32b1b554da12f1454d53d8a7,
     type: 3}
-  PlayerPrefab: {fileID: 7671492260777616913, guid: dd266d0e06fc0d142ad7b575e13a196e,
+  _playerPrefab: {fileID: 7671492260777616913, guid: dd266d0e06fc0d142ad7b575e13a196e,
     type: 3}
+  _spawnAraeRadius: 2.5
+  _spawnAreaCenter: {x: 0, y: 1, z: 0}
+  _enemyCount: 3
+--- !u!114 &1737173831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823fcb9e5423803478d5f40396c76d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <database>k__BackingField: {fileID: 11400000, guid: ebf2e0c9c06871d429dddc5c49c38eac,
+    type: 2}
+  <activeThemeIndex>k__BackingField: 0
+  <isThemeOpen>k__BackingField: 0100
+--- !u!114 &1737173832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b8392183704ac4a81b2b0ad66de28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <figures>k__BackingField:
+  - {fileID: 842737468946489715, guid: c2544a6177d8c054f8f4d949ea87ab63, type: 3}
+  - {fileID: 1454040989395169138, guid: 73f21dac9255e044a8c7e0ab43ba13d9, type: 3}
+  - {fileID: 5755386891392071012, guid: 7885ff6c689fa4e448dbc199e009e976, type: 3}
+  - {fileID: 7890949964051850516, guid: d107721d4ee17244e8634dc8e60f2308, type: 3}
+  - {fileID: 5230906577051842565, guid: fb76069c0c55a2e4d8af2f92f1989084, type: 3}
+  - {fileID: 805936228926504218, guid: 84411118da8c0fd40a7d97d9a9e9b174, type: 3}
+  - {fileID: 6198297026026149985, guid: f460f48086a96b44e9bb289300e899c5, type: 3}
+  - {fileID: 1678940026298297364, guid: 7b0f3ec926063cc4295f8cac8b309b0b, type: 3}
+  <activeFigureIndex>k__BackingField: 0
+  <isFigureOpen>k__BackingField: 0100000000000000
 --- !u!1 &1859878459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,9 +1298,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859878459}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1859878461
@@ -1474,7 +1530,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
@@ -1548,8 +1606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823fcb9e5423803478d5f40396c76d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Themes:
-  - {fileID: 11400000, guid: 2e075a08ce8237046a4453d1b6999626, type: 2}
-  - {fileID: 11400000, guid: 26144a87950cf854e9be390c06d97eac, type: 2}
-  ActiveThemeIndex: 1
-  IsThemeOpen: 0101
+  <database>k__BackingField: {fileID: 0}
+  <activeThemeIndex>k__BackingField: 0
+  <isThemeOpen>k__BackingField: 

@@ -1,47 +1,52 @@
 using UnityEngine;
 
-public class ThemeInitializer
+namespace ViewElements 
 {
-    private Button[] _buttons;
-    private EnemyBall[] _enemyBalls;
-    private PlayerBall _playerBall;
-    private Background _background;
-
-    public void IniThemeOnAllObjects(Theme theme)
+    public class ThemeInitializer
     {
-        IniThemeOnButtons(theme.ButtonTheme);
-        IniThemeOnBackground(theme.BackgroundTheme);
-        IniThemeOnPlayer(theme.PlayerTheme);
-        IniThemeOnEnemy(theme.EnemyTheme);
-    }
+        private Button[] _buttons;
+        private EnemyBall[] _enemyBalls;
+        private PlayerBall _playerBall;
+        private Background _background;
 
-    public void IniThemeOnButtons(ButtonTheme theme) 
-    {
-        _buttons = GameObject.FindObjectsOfType<Button>();
-        foreach (var button in _buttons)
+        public void IniThemeOnAllObjects(Theme theme)
         {
-            button.IniTheme(theme);
+            IniThemeOnButtons(theme.ButtonTheme);
+            IniThemeOnBackground(theme.BackgroundTheme);
+            IniThemeOnPlayer(theme.PlayerTheme);
+            IniThemeOnEnemy(theme.EnemyTheme);
         }
-    }
 
-    public void IniThemeOnBackground(BackgroundTheme theme) 
-    {
-        _background = GameObject.FindObjectOfType<Background>();
-        _background.IniTheme(theme);
-    }
-
-    public void IniThemeOnPlayer(PlayerTheme theme) 
-    {
-        _playerBall = GameObject.FindObjectOfType<PlayerBall>();
-        _playerBall.IniTheme(theme);
-    }
-
-    public void IniThemeOnEnemy(EnemyTheme theme) 
-    {
-        _enemyBalls = GameObject.FindObjectsOfType<EnemyBall>();
-        foreach (var enemyBall in _enemyBalls)
+        public void IniThemeOnButtons(ButtonTheme theme) 
         {
-            enemyBall.IniTheme(theme);
+            _buttons = GameObject.FindObjectsOfType<Button>();
+            foreach (var button in _buttons)
+            {
+                button.IniTheme(theme);
+            }
+        }
+
+        public void IniThemeOnBackground(BackgroundTheme theme) 
+        {
+            _background = GameObject.FindObjectOfType<Background>();
+            _background.IniTheme(theme);
+        }
+
+        public void IniThemeOnPlayer(PlayerTheme theme) 
+        {
+            _playerBall = GameObject.FindObjectOfType<PlayerBall>();
+            _playerBall.IniTheme(theme);
+        }
+
+        public void IniThemeOnEnemy(EnemyTheme theme) 
+        {
+            _enemyBalls = GameObject.FindObjectsOfType<EnemyBall>();
+            foreach (var enemyBall in _enemyBalls)
+            {
+                enemyBall.IniTheme(theme);
+            }
         }
     }
 }
+
+

@@ -1,4 +1,8 @@
-public interface IThemeChanged
+namespace ViewElements 
 {
-    public void IniTheme(Theme theme);
+    public interface IThemeChanged
+    {
+        public void IniTheme(Theme theme);
+    }
 }
+
