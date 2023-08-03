@@ -11,7 +11,6 @@ public class GameEntryPoint : MonoBehaviour
     [SerializeField] private Transform FigurePosition;
     [SerializeField] private float EnemyCount;
 
-    private ThemeInitializer _themeInitializer;
     private BallSpawner _ballSpawner;
 
     private Transform _figurePosition => FigurePosition;
@@ -21,7 +20,6 @@ public class GameEntryPoint : MonoBehaviour
         _themeRepository = FindObjectOfType<ThemeRepository>();
         _figureRepository = FindObjectOfType<FigureRepository>();
         _ballSpawner = FindObjectOfType<BallSpawner>();
-        _themeInitializer = new ThemeInitializer();
         LoadScene();
     }
 
@@ -31,7 +29,6 @@ public class GameEntryPoint : MonoBehaviour
         SetGameState();
         SpawnActiveFigure();
         SpawnPlayerAndEnemy();
-        PaintAllToThemeColor();
     }
 
     private void SetGameState()
@@ -58,11 +55,5 @@ public class GameEntryPoint : MonoBehaviour
             _ballSpawner.SpawnEnemy();
         }
         _ballSpawner.SpawnPlayer();
-    }
-    private void PaintAllToThemeColor()
-    {
-        _themeInitializer.IniThemeOnAllObjects(
-            _themeRepository.GetActiveTheme()
-            );
     }
 }

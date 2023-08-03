@@ -163,7 +163,6 @@ GameObject:
   - component: {fileID: 2521980872818804891}
   - component: {fileID: 2521980872818804894}
   - component: {fileID: 2521980872818804888}
-  - component: {fileID: 2521980872818804889}
   m_Layer: 5
   m_Name: CirculButton 1
   m_TagString: Untagged
@@ -256,23 +255,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!111 &2521980872818804889
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521980872818804868}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &4045392056855349874
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +264,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2164087360851516440}
+  - component: {fileID: 6052101445001641473}
+  - component: {fileID: 373728430753148}
   m_Layer: 0
   m_Name: ButtonVisual
   m_TagString: Untagged
@@ -312,6 +296,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6052101445001641473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045392056855349874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda822b1b7f48534ba2fe15c201571cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAnimation: {fileID: 0}
+  hideAnimation: {fileID: 0}
+  _frontTexture: {fileID: 2357426145064898037}
+  _shadow: {fileID: 2707050057870335196}
+  _icon: {fileID: 2521980871219464549}
+--- !u!111 &373728430753148
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045392056855349874}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5316790019496513521
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,6 @@ public class PlayerBall : Ball, ITouchHandler
         base.OnEnable();
         EventBus.Subscribe(this);
         _normalSize = transform.localScale.x;
-        PlayerTheme theme =
-            GameObject.FindObjectOfType<ThemeRepository>().GetActivePlayerTheme();
-        IniTheme(theme);
     }
 
     private void OnDisable()
@@ -31,11 +28,6 @@ public class PlayerBall : Ball, ITouchHandler
         {
             Death();
         }
-    }
-
-    public void IniTheme(PlayerTheme presets)
-    {
-        gameObject.GetComponent<SpriteRenderer>().sprite = presets.PlayerBall;
     }
 
     void ITouchHandler.StartTouch()

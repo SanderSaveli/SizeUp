@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour 
 {
+    public bool showSpawnZone;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _playerPrefab;
 
@@ -43,7 +44,10 @@ public class BallSpawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawSphere(_spawnAreaCenter, _spawnAraeRadius);
+        if (showSpawnZone) 
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(_spawnAreaCenter, _spawnAraeRadius);
+        }
     }
 }

@@ -1,51 +1,28 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using ViewElements;
 
 public abstract class Button : MonoBehaviour
 {
-    public AnimationClip showAnimation;
-    public AnimationClip hideAnimation;
-
-    [SerializeField] private Image _frontTexture;
-    [SerializeField] private Image _shadow;
-    [SerializeField] private Image _icon;
-
-    private Animation _animation;
-    private GameObject _buttonVisual;
+    private ButtonView _buttonVisual;
 
     public abstract void Click();
 
-    private void OnEnable()
+    private void Awake()
     {
-        _animation = GetComponent<Animation>();
-        _buttonVisual = transform.GetChild(0).gameObject;
-    }
-    public void IniTheme(ButtonTheme theme) 
-    {
-        _frontTexture.color = theme.ButtonColor;
-        _icon.color = theme.IconColor;
+        _buttonVisual = GetComponentInChildren<ButtonView>();
+        if (_buttonVisual == null)
+        {
+            Debug.LogWarning("There is no view in button");
+        }
     }
 
-    public virtual void Show() 
+    public virtual void Show()
     {
-        ButtonTheme theme =
-            ThemeRepository.instance.GetActiveButtonTheme();
-        IniTheme(theme);
-        _buttonVisual.SetActive(true);
-        _animation.clip = showAnimation;
-        _animation.Play();
+        _buttonVisual.Show();
     }
-    public virtual void Hide() 
+    public virtual void Hide()
     {
-        _animation.clip = hideAnimation;
-        _animation.Play();
-        StartCoroutine(DissableAfterAnimationEnd(_animation.clip.length));
-    }
-    private IEnumerator DissableAfterAnimationEnd(float animationDuration) 
-    {
-        yield return new WaitForSeconds(animationDuration);
-        _buttonVisual.SetActive(false);
+
+        _buttonVisual.Hide();
     }
 }

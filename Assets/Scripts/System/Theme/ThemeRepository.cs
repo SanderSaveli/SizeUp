@@ -14,7 +14,7 @@ namespace ViewElements
         [field: SerializeField] public int activeThemeIndex { get; private set; }
         [field: SerializeField] public bool[] isThemeOpen { get; private set; }
 
-        public Theme acktiveTheme { get; private set; }
+        public Theme activeTheme { get; private set; }
 
         private string saveKey = "ThemeRepository";
 
@@ -28,12 +28,24 @@ namespace ViewElements
         private void Awake()
         {
             base.Awake();
-            acktiveTheme = database.themes[activeThemeIndex];
+            activeTheme = database.themes[activeThemeIndex];
+        }
+        private void Start()
+        {
+            ChandeTheme(activeThemeIndex);
         }
 
+        public void ChandeTheme(int activeThemeIndex) 
+        {
+            activeTheme = database.themes[activeThemeIndex];
+            foreach(ThemeChanged changed in FindObjectsOfType<ThemeChanged>()) 
+            {
+                changed.ChangeTheme(activeTheme);
+            }
+        }
         public Theme GetActiveTheme()
         {
-            return acktiveTheme;
+            return activeTheme;
         }
 
         public ButtonTheme GetActiveButtonTheme()
