@@ -7,6 +7,11 @@ namespace ViewElements
     public class ThemeDatabase : ScriptableObject
     {
         public List<Theme> themes = new List<Theme>();
+
+        private void Awake()
+        {
+            Debug.Log(themes);
+        }
     }
 }
 

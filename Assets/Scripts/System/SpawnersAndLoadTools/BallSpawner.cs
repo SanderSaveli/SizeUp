@@ -8,8 +8,6 @@ public class BallSpawner : MonoBehaviour
     [SerializeField] private float _spawnAraeRadius = 3f;
     [SerializeField] private Vector3 _spawnAreaCenter = Vector3.zero;
 
-    [SerializeField] private int _enemyCount = 3;
-
     public GameObject SpawnPlayer() 
     {
         return SpawnBall(_playerPrefab, _spawnAreaCenter);

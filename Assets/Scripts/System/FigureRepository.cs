@@ -1,7 +1,9 @@
 using Services;
 using Services.StorageService;
 using System;
+using System.IO;
 using UnityEngine;
+using Singletones;
 
 public class FigureRepository : Singletone<FigureRepository>
 {
@@ -31,7 +33,20 @@ public class FigureRepository : Singletone<FigureRepository>
     }
     public void LoadData()
     {
-        ServiceLockator.instance.GetService<IStoregeService>().Load<FigureRepositoryData>(saveKey, IniRepository);
+        try 
+        {
+                ServiceLockator.instance.GetService<IStoregeService>().Load<FigureRepositoryData>(saveKey, IniRepository);
+        }
+        catch (FileNotFoundException) 
+        {
+            CreateFirstSave();
+            LoadData();
+        }
+    }
+
+    private void CreateFirstSave()
+    {
+        SaveData();
     }
 
     private void IniRepository(FigureRepositoryData data)

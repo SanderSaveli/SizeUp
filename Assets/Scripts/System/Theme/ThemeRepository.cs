@@ -1,15 +1,20 @@
 using Services;
 using Services.StorageService;
 using System;
+using System.IO;
 using UnityEngine;
+using Singletones;
 
 namespace ViewElements
 {
     public class ThemeRepository : DontDestroyOnLoadSingletone<ThemeRepository>
     {
         [field: SerializeField] public ThemeDatabase database { get; private set; }
+        private ThemeDatabase _database;
         [field: SerializeField] public int activeThemeIndex { get; private set; }
         [field: SerializeField] public bool[] isThemeOpen { get; private set; }
+
+        public Theme acktiveTheme { get; private set; }
 
         private string saveKey = "ThemeRepository";
 
@@ -20,9 +25,15 @@ namespace ViewElements
             public bool[] isThemeOpen;
         }
 
+        private void Awake()
+        {
+            base.Awake();
+            acktiveTheme = database.themes[activeThemeIndex];
+        }
+
         public Theme GetActiveTheme()
         {
-            return database.themes[activeThemeIndex];
+            return acktiveTheme;
         }
 
         public ButtonTheme GetActiveButtonTheme()
@@ -55,7 +66,20 @@ namespace ViewElements
         }
         public void LoadData()
         {
-            ServiceLockator.instance.GetService<IStoregeService>().Load<ThemeRepositoryData>(saveKey, IniRepository);
+            try 
+            {
+                ServiceLockator.instance.GetService<IStoregeService>().Load<ThemeRepositoryData>(saveKey, IniRepository);
+            }
+            catch (FileNotFoundException) 
+            {
+                CreateFirstSave();
+                LoadData();
+            }
+        }
+
+        private void CreateFirstSave()
+        {
+            SaveData();
         }
 
         private void IniRepository(ThemeRepositoryData data)

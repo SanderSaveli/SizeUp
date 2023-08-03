@@ -12,6 +12,9 @@ namespace Services.StorageService
 
         public void Save(string key, object data, Action<bool> callback = null)
         { }
+
+        public void Shutdown()
+        { }
     }
 }
 

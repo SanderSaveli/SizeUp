@@ -1,5 +1,7 @@
 using Services.StorageService;
+using Services.GameState;
 using UnityEngine;
+using Services.SceneLoad;
 
 namespace Services
 {
@@ -8,7 +10,9 @@ namespace Services
         private void Awake()
         {
             ServiceLockator lockator = ServiceLockator.instance;
+            lockator.RegisterService<IGameStateService>(new GameStateManager());
             lockator.RegisterService<IStoregeService>(new JSONToFileStorageService());
+            lockator.RegisterService<ISceneLoadService>(new SceneLoader());
         }
     }
 }

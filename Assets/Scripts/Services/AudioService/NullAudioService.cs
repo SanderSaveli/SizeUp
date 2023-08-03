@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace Services
+namespace Services.Audio
 {
     public class NullAudioService : IAudioService
     {
@@ -13,6 +13,9 @@ namespace Services
         { }
 
         public void PlaySound(AudioClip sound)
+        { }
+
+        public void Shutdown()
         { }
     }
 }

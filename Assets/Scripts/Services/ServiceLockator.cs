@@ -1,8 +1,10 @@
 using Services.StorageService;
+using Services.Audio;
+using Services.GameState;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Singletones;
 namespace Services
 {
     public class ServiceLockator : DontDestroyOnLoadSingletone<ServiceLockator>

@@ -1,9 +1,9 @@
+using Services;
+using Services.GameState;
 using UnityEngine;
 using ViewElements;
-using Services.StorageService;
-using Services;
 
-public class SceneLoader: MonoBehaviour 
+public class GameEntryPoint : MonoBehaviour
 {
     private ThemeRepository _themeRepository;
     private FigureRepository _figureRepository;
@@ -11,7 +11,6 @@ public class SceneLoader: MonoBehaviour
     [SerializeField] private Transform FigurePosition;
     [SerializeField] private float EnemyCount;
 
-    private IStoregeService _storageService;
     private ThemeInitializer _themeInitializer;
     private BallSpawner _ballSpawner;
 
@@ -22,7 +21,6 @@ public class SceneLoader: MonoBehaviour
         _themeRepository = FindObjectOfType<ThemeRepository>();
         _figureRepository = FindObjectOfType<FigureRepository>();
         _ballSpawner = FindObjectOfType<BallSpawner>();
-        _storageService = ServiceLockator.instance.GetService<IStoregeService>();
         _themeInitializer = new ThemeInitializer();
         LoadScene();
     }
@@ -30,9 +28,16 @@ public class SceneLoader: MonoBehaviour
     public void LoadScene()
     {
         LoadDataToRepository();
+        SetGameState();
         SpawnActiveFigure();
         SpawnPlayerAndEnemy();
         PaintAllToThemeColor();
+    }
+
+    private void SetGameState()
+    {
+        ServiceLockator.instance.GetService<IGameStateService>().
+            ChangeSceneState(new StateMenu());
     }
 
     private void LoadDataToRepository()
@@ -48,7 +53,7 @@ public class SceneLoader: MonoBehaviour
 
     private void SpawnPlayerAndEnemy()
     {
-        for (int i = 0; i < EnemyCount; i++) 
+        for (int i = 0; i < EnemyCount; i++)
         {
             _ballSpawner.SpawnEnemy();
         }

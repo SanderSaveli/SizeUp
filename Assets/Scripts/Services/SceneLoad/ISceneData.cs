@@ -1,6 +1,6 @@
 using System;
 
-namespace Services.StorageService
+namespace Services.SceneLoad
 {
     public interface ISceneData
     {

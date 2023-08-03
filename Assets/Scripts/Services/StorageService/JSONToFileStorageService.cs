@@ -42,5 +42,8 @@ namespace Services.StorageService
 
         public void Initialize()
         {   }
+
+        public void Shutdown()
+        {   }
     }
 }

@@ -18,13 +18,7 @@ namespace ViewElements
         }
 
         public void IniThemeOnButtons(ButtonTheme theme) 
-        {
-            _buttons = GameObject.FindObjectsOfType<Button>();
-            foreach (var button in _buttons)
-            {
-                button.IniTheme(theme);
-            }
-        }
+        {   }
 
         public void IniThemeOnBackground(BackgroundTheme theme) 
         {
