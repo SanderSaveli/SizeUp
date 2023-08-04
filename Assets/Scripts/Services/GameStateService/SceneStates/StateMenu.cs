@@ -12,7 +12,6 @@ namespace Services.GameState
             Button[] buttonsToEnable =
                 GameObject.FindObjectsOfType<Button>()
                 .Where(it => it.GetComponent<IMainMenuButton>()!= null).ToArray();
-            Debug.Log(buttonsToEnable.Length);
             Transform UiCanvas =
                 GameObject.FindGameObjectWithTag("UiCanvas").transform;
 

@@ -9,18 +9,14 @@ namespace Services.GameState
         private List<Button> _deathMenuButton = new List<Button>();
         public void Enter()
         {
-            Button[] buttonsToSpawn =
-                GameObject.FindObjectsOfType<Button>()
-                .Where(it => it.GetComponent<IDeathMenuButton>() != null).ToArray();
+            Button[] buttonsToEnable =
+    GameObject.FindObjectsOfType<Button>()
+    .Where(it => it.GetComponent<IDeathMenuButton>() != null).ToArray();
 
-            Transform UiCanvas =
-                GameObject.FindGameObjectWithTag("UiCanvas").transform;
-
-            foreach (Button button in buttonsToSpawn)
+            foreach (Button button in buttonsToEnable)
             {
-                Button newButton = GameObject.Instantiate(button, UiCanvas);
-                _deathMenuButton.Add(newButton);
-                _deathMenuButton.Last().Show();
+                button.Show();
+                _deathMenuButton.Add(button);
             }
         }
 

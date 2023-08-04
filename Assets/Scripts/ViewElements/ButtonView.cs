@@ -33,7 +33,6 @@ namespace ViewElements
 
         public void Hide(Action<bool> callback = null) 
         {
-            SetActiveAllChildren(false);
             PlayHideAnimation(callback);
         }
         public override void ChangeTheme(Theme theme)
@@ -65,6 +64,7 @@ namespace ViewElements
                 if(callback != null) 
                 {
                     UpdateAnimationCallback(_animation.clip, callback);
+                    InvokeAfterDelay(_animation.clip.length, InverseSetActiveAllChildren);
                 }
             }
             else 
@@ -100,6 +100,11 @@ namespace ViewElements
             {
                 transform.GetChild(i).gameObject.SetActive(state);
             }
+        }
+
+        private void InverseSetActiveAllChildren(bool state) 
+        {
+            SetActiveAllChildren(!state);
         }
     }
 }
