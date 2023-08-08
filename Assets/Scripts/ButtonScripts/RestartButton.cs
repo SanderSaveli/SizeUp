@@ -1,3 +1,4 @@
+using EventBusSystem;
 public class RestartButton : Button, IDeathMenuButton
 {
     public override void Click()

@@ -7,7 +7,7 @@ namespace Services.StorageService
         public void Initialize()
         { }
 
-        public void Load<T>(string key, Action<T> callback)
+        public void CallbackLoad<T>(string key, Action<T> callback)
         { }
 
         public void Save(string key, object data, Action<bool> callback = null)
@@ -15,6 +15,11 @@ namespace Services.StorageService
 
         public void Shutdown()
         { }
+
+        public T Load<T>(string key)
+        {
+            return default(T);
+        }
     }
 }
 

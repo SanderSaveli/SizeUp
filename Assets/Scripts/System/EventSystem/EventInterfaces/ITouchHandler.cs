@@ -1,6 +1,10 @@
-public interface ITouchHandler : IGlobalSubscriber
+namespace EventBusSystem 
 {
-    public void StartTouch();
+    public interface ITouchHandler : IGlobalSubscriber
+    {
+        public void StartTouch();
 
-    public void EndTouch();
+        public void EndTouch();
+    }
 }
+

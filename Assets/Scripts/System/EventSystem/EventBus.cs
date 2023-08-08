@@ -3,70 +3,70 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public static class EventBus
+namespace EventBusSystem
 {
-    private static Dictionary<Type, SubscribersList<IGlobalSubscriber>> _subscribers =
-        new Dictionary<Type, SubscribersList<IGlobalSubscriber>>();
 
-    private static Dictionary<Type, List<Type>> s_CashedSubscriberTypes =
-        new Dictionary<Type, List<Type>>();
-
-    public static void Subscribe(IGlobalSubscriber globalSubscriber)
+    public static class EventBus
     {
-        List<Type> SubscriberTypes = GetSubscribersTypes(globalSubscriber);
-        foreach (Type subscriberType in SubscriberTypes)
-        {
-            if (!_subscribers.ContainsKey(subscriberType))
-                _subscribers[subscriberType] = new SubscribersList<IGlobalSubscriber>();
-            _subscribers[subscriberType].Add(globalSubscriber);
-        }
-    }
+        private static Dictionary<Type, SubscribersList<IGlobalSubscriber>> _subscribers =
+            new Dictionary<Type, SubscribersList<IGlobalSubscriber>>();
 
-    public static void Unsubscribe(IGlobalSubscriber subcriber)
-    {
-        List<Type> subscriberTypes = GetSubscribersTypes(subcriber);
-        foreach (Type t in subscriberTypes)
-        {
-            if (_subscribers.ContainsKey(t))
-                _subscribers[t].Remove(subcriber);
-        }
-    }
+        private static Dictionary<Type, List<Type>> s_CashedSubscriberTypes =
+            new Dictionary<Type, List<Type>>();
 
-    public static void RaiseEvent<TSubscriber>(Action<TSubscriber> action)
-    where TSubscriber : IGlobalSubscriber
-    {
-        SubscribersList<IGlobalSubscriber> subscribersOfThisAction = _subscribers[typeof(TSubscriber)];
-        subscribersOfThisAction._isExecuting = true;
-
-        foreach (IGlobalSubscriber subscriber in subscribersOfThisAction.List)
+        public static void Subscribe(IGlobalSubscriber globalSubscriber)
         {
-            try
+            List<Type> SubscriberTypes = GetSubscribersTypes(globalSubscriber);
+            foreach (Type subscriberType in SubscriberTypes)
             {
-                action?.Invoke((TSubscriber)subscriber);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
+                if (!_subscribers.ContainsKey(subscriberType))
+                    _subscribers[subscriberType] = new SubscribersList<IGlobalSubscriber>();
+                _subscribers[subscriberType].Add(globalSubscriber);
             }
         }
 
-        subscribersOfThisAction._isExecuting = false;
-        subscribersOfThisAction.Cleanup();
-    }
+        public static void Unsubscribe(IGlobalSubscriber subcriber)
+        {
+            List<Type> subscriberTypes = GetSubscribersTypes(subcriber);
+            foreach (Type t in subscriberTypes)
+            {
+                if (_subscribers.ContainsKey(t))
+                    _subscribers[t].Remove(subcriber);
+            }
+        }
 
-    public static List<Type> GetSubscribersTypes(IGlobalSubscriber globalSubscriber)
-    {
-        Type type = globalSubscriber.GetType();
+        public static void RaiseEvent<TSubscriber>(Action<TSubscriber> action)
+        where TSubscriber : IGlobalSubscriber
+        {
+            if (_subscribers.ContainsKey(typeof(TSubscriber)))
+            {
+                SubscribersList<IGlobalSubscriber> subscribersOfThisAction = _subscribers[typeof(TSubscriber)];
+                subscribersOfThisAction._isExecuting = true;
 
-        if (s_CashedSubscriberTypes.ContainsKey(type))
-            return s_CashedSubscriberTypes[type];
+                foreach (IGlobalSubscriber subscriber in subscribersOfThisAction.List)
+                {
+                    action?.Invoke((TSubscriber)subscriber);
+                }
 
-        List<Type> subscriberTypes = type
-            .GetInterfaces().Where(
-            it => it.GetInterfaces().Contains(typeof(IGlobalSubscriber)))
-            .ToList();
+                subscribersOfThisAction._isExecuting = false;
+                subscribersOfThisAction.Cleanup();
+            }
+        }
 
-        s_CashedSubscriberTypes[type] = subscriberTypes;
-        return subscriberTypes;
+        public static List<Type> GetSubscribersTypes(IGlobalSubscriber globalSubscriber)
+        {
+            Type type = globalSubscriber.GetType();
+
+            if (s_CashedSubscriberTypes.ContainsKey(type))
+                return s_CashedSubscriberTypes[type];
+
+            List<Type> subscriberTypes = type
+                .GetInterfaces().Where(
+                it => it.GetInterfaces().Contains(typeof(IGlobalSubscriber)))
+                .ToList();
+
+            s_CashedSubscriberTypes[type] = subscriberTypes;
+            return subscriberTypes;
+        }
     }
 }

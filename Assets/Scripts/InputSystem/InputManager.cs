@@ -1,4 +1,5 @@
 using UnityEngine;
+using EventBusSystem;
 
 public class InputManager : MonoBehaviour
 {

@@ -25,7 +25,7 @@ namespace ViewElements
             public bool[] isThemeOpen;
         }
 
-        private void Awake()
+        public override void Awake()
         {
             base.Awake();
             activeTheme = database.themes[activeThemeIndex];
@@ -80,7 +80,7 @@ namespace ViewElements
         {
             try 
             {
-                ServiceLockator.instance.GetService<IStoregeService>().Load<ThemeRepositoryData>(saveKey, IniRepository);
+                ServiceLockator.instance.GetService<IStoregeService>().CallbackLoad<ThemeRepositoryData>(saveKey, IniRepository);
             }
             catch (FileNotFoundException) 
             {

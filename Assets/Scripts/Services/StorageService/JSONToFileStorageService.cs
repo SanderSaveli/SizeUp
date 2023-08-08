@@ -19,20 +19,9 @@ namespace Services.StorageService
 
             callback?.Invoke(true);
         }
-        public void Load<T>(string key, Action<T> callback)
+        public void CallbackLoad<T>(string key, Action<T> callback)
         {
-            string path = BuildPath(key);
-
-            using (var file = new StreamReader(path))
-            {
-                string json = file.ReadToEnd();
-                T data = JsonConvert.DeserializeObject<T>(json);
-                if (data == null)
-                {
-                    Debug.LogWarning("Failed to load data");
-                }
-                callback.Invoke(data);
-            }
+            callback.Invoke(Load<T>(key));
         }
 
         private string BuildPath(string key)
@@ -45,5 +34,33 @@ namespace Services.StorageService
 
         public void Shutdown()
         {   }
+
+        public T Load<T>(string key)
+        {
+            string path = BuildPath(key);
+            try 
+            {
+                using (var file = new StreamReader(path))
+                {
+                    string json = file.ReadToEnd();
+                    T data = JsonConvert.DeserializeObject<T>(json);
+                    if (data == null)
+                    {
+                        return LogAndretirnDefaultValue<T>();
+                    }
+                    return data;
+                }
+            }
+            catch (FileNotFoundException) 
+            {
+                return LogAndretirnDefaultValue<T>();
+            }
+        }
+
+        private T LogAndretirnDefaultValue<T>() 
+        {
+            Debug.LogWarning("Failed to load data");
+            return default(T);
+        }
     }
 }

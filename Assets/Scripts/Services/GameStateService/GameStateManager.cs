@@ -1,3 +1,4 @@
+using EventBusSystem;
 namespace Services.GameState
 {
     public class GameStateManager : IGameStateService, IGameSartHandler, IGameEndHandler, IBackToMenuHandler

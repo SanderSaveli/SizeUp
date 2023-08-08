@@ -1,4 +1,8 @@
-public interface IGameEndHandler : IGameSartHandler
+namespace EventBusSystem 
 {
-    public void GameEnd();
+    public interface IGameEndHandler : IGlobalSubscriber
+    {
+        public void GameEnd();
+    }
 }
+

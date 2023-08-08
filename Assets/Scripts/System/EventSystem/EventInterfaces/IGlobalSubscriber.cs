@@ -1,2 +1,6 @@
-public interface IGlobalSubscriber
-{   }
+namespace EventBusSystem
+{
+    public interface IGlobalSubscriber
+    { }
+}
+

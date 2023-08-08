@@ -1,4 +1,7 @@
-public interface IGameSartHandler : IGlobalSubscriber
+namespace EventBusSystem
 {
-    public void GameStart();
+    public interface IGameSartHandler : IGlobalSubscriber
+    {
+        public void GameStart();
+    }
 }

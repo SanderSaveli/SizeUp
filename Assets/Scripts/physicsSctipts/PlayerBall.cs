@@ -1,12 +1,22 @@
 using System.Collections;
 using UnityEngine;
-using ViewElements;
+using EventBusSystem;
 
 public class PlayerBall : Ball, ITouchHandler
 {
     [SerializeField] private float SizeIncreasePerSecondInPercent;
     [SerializeField] private float SizeDecreasePerSecondInPercent;
     private float _normalSize;
+    public bool isRise { get => _isRise; 
+        private set 
+        { 
+            _isRise = value;
+            if (_isRise)
+                EventBus.RaiseEvent<IPlayerChangeSizeHandler>(it => it.OnPlayerStartIncrease());
+            else
+                EventBus.RaiseEvent<IPlayerChangeSizeHandler>(it => it.OnPlayerEndIncrease());
+        } 
+    }
     private bool _isRise;
 
     protected override void OnEnable()
@@ -24,7 +34,7 @@ public class PlayerBall : Ball, ITouchHandler
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ChangeDirection(collision.contacts[0].normal);
-        if(_isRise && collision.gameObject.GetComponent<EnemyBall>() != null) 
+        if(isRise && collision.gameObject.GetComponent<EnemyBall>() != null) 
         {
             Death();
         }
@@ -32,21 +42,21 @@ public class PlayerBall : Ball, ITouchHandler
 
     void ITouchHandler.StartTouch()
     {
-        _isRise = true;
+        isRise = true;
         StopCoroutine(BackToNormalSize());
         StartCoroutine(Increas());
     }
 
     void ITouchHandler.EndTouch()
     {
-        _isRise = false;
+        isRise = false;
         StopAllCoroutines();
         StartCoroutine(BackToNormalSize());
     }
 
     private IEnumerator Increas()
     {
-        while (_isRise)
+        while (isRise)
         {
             ChangeSize();
             yield return null;
@@ -55,12 +65,12 @@ public class PlayerBall : Ball, ITouchHandler
 
     private IEnumerator BackToNormalSize() 
     { 
-        while(transform.localScale.x > _normalSize && !_isRise) 
+        while(transform.localScale.x > _normalSize && !isRise) 
         {
             transform.localScale *= 1 - SizeDecreasePerSecondInPercent * Time.deltaTime / 100;
             yield return null;
         }
-        if(!_isRise)
+        if(!isRise)
             transform.localScale = new Vector3(_normalSize, _normalSize, _normalSize);
     }
 

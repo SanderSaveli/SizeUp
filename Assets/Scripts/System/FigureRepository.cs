@@ -35,7 +35,7 @@ public class FigureRepository : Singletone<FigureRepository>
     {
         try 
         {
-                ServiceLockator.instance.GetService<IStoregeService>().Load<FigureRepositoryData>(saveKey, IniRepository);
+                ServiceLockator.instance.GetService<IStoregeService>().CallbackLoad<FigureRepositoryData>(saveKey, IniRepository);
         }
         catch (FileNotFoundException) 
         {

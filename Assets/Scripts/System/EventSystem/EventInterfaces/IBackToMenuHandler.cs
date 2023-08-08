@@ -1,4 +1,8 @@
-public interface IBackToMenuHandler : IGlobalSubscriber
+namespace EventBusSystem 
 {
-    public void BackToMenu();
+    public interface IBackToMenuHandler : IGlobalSubscriber
+    {
+        public void BackToMenu();
+    }
+
 }
