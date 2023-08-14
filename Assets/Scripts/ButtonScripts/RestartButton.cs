@@ -1,8 +1,12 @@
 using EventBusSystem;
-public class RestartButton : Button, IDeathMenuButton
+namespace ViewElements.Button 
 {
-    public override void Click()
+    public class RestartButton : Button, IDeathMenuButton
     {
-        EventBus.RaiseEvent<IGameSartHandler>(it => it.GameStart());
+        public override void Click()
+        {
+            EventBus.RaiseEvent<IGameSartHandler>(it => it.GameStart());
+        }
     }
 }
+

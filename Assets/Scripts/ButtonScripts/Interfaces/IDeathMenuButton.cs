@@ -1,2 +1,6 @@
-public interface IDeathMenuButton
-{   }
+namespace ViewElements.Button 
+{
+    public interface IDeathMenuButton
+    {   }
+}
+

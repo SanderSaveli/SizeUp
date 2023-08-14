@@ -1,8 +1,12 @@
 using EventBusSystem;
-public class BackToMenuButton : Button, IDeathMenuButton
+namespace ViewElements.Button 
 {
-    public override void Click()
+    public class BackToMenuButton : Button, IDeathMenuButton
     {
-        EventBus.RaiseEvent<IBackToMenuHandler>(it => it.BackToMenu());
+        public override void Click()
+        {
+            EventBus.RaiseEvent<IBackToMenuHandler>(it => it.BackToMenu());
+        }
     }
 }
+

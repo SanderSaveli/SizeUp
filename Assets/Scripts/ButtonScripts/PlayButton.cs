@@ -1,8 +1,12 @@
 using EventBusSystem;
-public class PlayButton : Button, IMainMenuButton
+namespace ViewElements.Button 
 {
-    public override void Click()
+    public class PlayButton : Button, IMainMenuButton
     {
-        EventBus.RaiseEvent<IGameSartHandler>(it => it.GameStart());
+        public override void Click()
+        {
+            EventBus.RaiseEvent<IGameSartHandler>(it => it.GameStart());
+        }
     }
 }
+

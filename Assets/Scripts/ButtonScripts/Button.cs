@@ -1,28 +1,32 @@
 using UnityEngine;
 using ViewElements;
 
-public abstract class Button : MonoBehaviour
+namespace ViewElements.Button 
 {
-    private ButtonView _buttonVisual;
-
-    public abstract void Click();
-
-    private void Awake()
+    public abstract class Button : MonoBehaviour
     {
-        _buttonVisual = GetComponentInChildren<ButtonView>();
-        if (_buttonVisual == null)
+        private ButtonView _buttonVisual;
+
+        public abstract void Click();
+
+        private void Awake()
         {
-            Debug.LogWarning("There is no view in button");
+            _buttonVisual = GetComponentInChildren<ButtonView>();
+            if (_buttonVisual == null)
+            {
+                Debug.LogWarning("There is no view in button");
+            }
+        }
+
+        public virtual void Show()
+        {
+            _buttonVisual.Show();
+        }
+        public virtual void Hide()
+        {
+
+            _buttonVisual.Hide();
         }
     }
-
-    public virtual void Show()
-    {
-        _buttonVisual.Show();
-    }
-    public virtual void Hide()
-    {
-
-        _buttonVisual.Hide();
-    }
 }
+

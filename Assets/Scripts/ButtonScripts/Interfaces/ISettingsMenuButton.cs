@@ -1,2 +1,6 @@
-public interface ISettingsMenuButton
-{   }
+namespace ViewElements.Button
+{
+    public interface ISettingsMenuButton
+    { }
+
+}

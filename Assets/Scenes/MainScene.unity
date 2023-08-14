@@ -1872,7 +1872,6 @@ GameObject:
   - component: {fileID: 1737173827}
   - component: {fileID: 1737173828}
   - component: {fileID: 1737173830}
-  - component: {fileID: 1737173831}
   - component: {fileID: 1737173832}
   - component: {fileID: 1737173833}
   - component: {fileID: 1737173834}
@@ -1944,22 +1943,6 @@ MonoBehaviour:
     type: 3}
   _spawnAraeRadius: 2.5
   _spawnAreaCenter: {x: 0, y: 1, z: 0}
---- !u!114 &1737173831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737173823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 823fcb9e5423803478d5f40396c76d30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <database>k__BackingField: {fileID: 11400000, guid: ebf2e0c9c06871d429dddc5c49c38eac,
-    type: 2}
-  <activeThemeIndex>k__BackingField: 0
-  <isThemeOpen>k__BackingField: 0100
 --- !u!114 &1737173832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1995,6 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55c076255ace8b4598bcabbf7dff6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _themeDatabase: {fileID: 11400000, guid: ebf2e0c9c06871d429dddc5c49c38eac, type: 2}
 --- !u!114 &1737173834
 MonoBehaviour:
   m_ObjectHideFlags: 0

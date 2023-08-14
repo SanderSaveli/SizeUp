@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public class SettingsButton : Button, IMainMenuButton
+namespace ViewElements.Button 
 {
-    public override void Click()
+    public class SettingsButton : Button, IMainMenuButton
     {
-        Debug.Log("Settings");
+        public override void Click()
+        {
+            Debug.Log("Settings");
+        }
     }
 }
+

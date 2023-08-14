@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public class ShopButton : Button, IMainMenuButton
+namespace ViewElements.Button 
 {
-    public override void Click()
+    public class ShopButton : Button, IMainMenuButton
     {
-        Debug.Log("Shop");
+        public override void Click()
+        {
+            Debug.Log("Shop");
+        }
     }
+
 }
