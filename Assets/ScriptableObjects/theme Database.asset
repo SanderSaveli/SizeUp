@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bd5fb19523bec4aa3b6bbd34a5de0c, type: 3}
   m_Name: theme Database
   m_EditorClassIdentifier: 
-  themes:
-  - {fileID: 11400000, guid: 2e075a08ce8237046a4453d1b6999626, type: 2}
-  - {fileID: 11400000, guid: 26144a87950cf854e9be390c06d97eac, type: 2}
+  themes: []

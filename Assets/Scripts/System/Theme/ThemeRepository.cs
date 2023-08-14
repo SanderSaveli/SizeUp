@@ -1,104 +1,140 @@
-using Services;
 using Services.StorageService;
 using System;
-using System.IO;
-using UnityEngine;
-using Singletones;
+using System.Collections.Generic;
+using ViewElements;
 
-namespace ViewElements
+namespace Services.Economic
 {
-    public class ThemeRepository : DontDestroyOnLoadSingletone<ThemeRepository>
+    public class ThemeRepository : IThemeService
     {
-        [field: SerializeField] public ThemeDatabase database { get; private set; }
-        private ThemeDatabase _database;
-        [field: SerializeField] public int activeThemeIndex { get; private set; }
-        [field: SerializeField] public bool[] isThemeOpen { get; private set; }
+        public event IThemeService.NewThemeSelected OnNewThemeSelected;
 
-        public Theme activeTheme { get; private set; }
-
-        private string saveKey = "ThemeRepository";
-
-        [Serializable]
-        public struct ThemeRepositoryData
-        {
-            public int activeThemeIndex;
-            public bool[] isThemeOpen;
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
-            activeTheme = database.themes[activeThemeIndex];
-        }
-        private void Start()
-        {
-            ChandeTheme(activeThemeIndex);
-        }
-
-        public void ChandeTheme(int activeThemeIndex) 
-        {
-            activeTheme = database.themes[activeThemeIndex];
-            foreach(ThemeChanged changed in FindObjectsOfType<ThemeChanged>()) 
-            {
-                changed.ChangeTheme(activeTheme);
+        public Theme selectedTheme { get => _selectedTheme;
+            private set
+            { 
+                _selectedTheme = value;
+                OnNewThemeSelected?.Invoke(value);
             }
         }
-        public Theme GetActiveTheme()
+        private Theme _selectedTheme;
+
+        public IReadOnlyDictionary<Theme, ThemeStatus> themes { get => _themes;}
+        public Dictionary<Theme, ThemeStatus> _themes { get; private set; }
+
+        private IStoregeService _storegeService;
+        private const string _saveKey = "ThemeStatuses";
+
+        public ThemeRepository(ThemeDatabase database)
         {
-            return activeTheme;
+            _storegeService = ServiceLockator.instance.GetService<IStoregeService>();
+            IniThemes(database);
         }
 
-        public ButtonTheme GetActiveButtonTheme()
+        private Theme findSelectedTheme() 
         {
-            return GetActiveTheme().ButtonTheme;
-        }
-
-        public BackgroundTheme GetActiveBackGroundTheme()
-        {
-            return GetActiveTheme().BackgroundTheme;
-        }
-
-        public PlayerTheme GetActivePlayerTheme()
-        {
-            return GetActiveTheme().PlayerTheme;
-        }
-
-        public EnemyTheme GetActiveEnemyTheme()
-        {
-            return GetActiveTheme().EnemyTheme;
-        }
-
-        public void SaveData()
-        {
-            ThemeRepositoryData currentData = new ThemeRepositoryData();
-            currentData.activeThemeIndex = activeThemeIndex;
-            currentData.isThemeOpen = isThemeOpen;
-            ServiceLockator.instance.GetService<IStoregeService>().Save(saveKey, currentData);
-
-        }
-        public void LoadData()
-        {
-            try 
+            foreach (Theme theme in _themes.Keys)
             {
-                ServiceLockator.instance.GetService<IStoregeService>().CallbackLoad<ThemeRepositoryData>(saveKey, IniRepository);
+                if(_themes.TryGetValue(theme, out ThemeStatus status)) 
+                {
+                    if(status == ThemeStatus.Selected) 
+                    {
+                        return theme;
+                    }
+                }
             }
-            catch (FileNotFoundException) 
+            throw new NotImplementedException("There is no seleckted theme!");
+        }
+
+        public void Initialize()
+        {
+            selectedTheme = findSelectedTheme();
+        }
+
+        public void Shutdown()
+        {    }
+
+        public bool OpenTheme(Theme theme)
+        {
+            if(_themes.ContainsKey(theme)) 
             {
-                CreateFirstSave();
-                LoadData();
+                if (_themes[theme] == ThemeStatus.Close) 
+                {
+                    _themes[theme] = ThemeStatus.Open;
+                    SaveCurrentStatuses();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool SelectTheme(Theme theme)
+        {
+            if (_themes.ContainsKey(theme))
+            {
+                if (_themes[theme] == ThemeStatus.Open)
+                {
+                    _themes[selectedTheme] = ThemeStatus.Open;
+                    selectedTheme = theme;
+                    _themes[theme] = ThemeStatus.Selected;
+                    SaveCurrentStatuses();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool LoadThemeStatus(out List<ThemeStatus> themeStatuses) 
+        {
+            themeStatuses = _storegeService.Load<List<ThemeStatus>>(_saveKey);
+            if(themeStatuses == null || themeStatuses.Count == 0) 
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void SaveCurrentStatuses() 
+        {
+            List<ThemeStatus> statuses = new();
+            foreach(Theme theme in themes.Keys) 
+            {
+                statuses.Add(themes[theme]);
+            }
+            _storegeService.Save(_saveKey, statuses);
+        }
+
+        private void IniThemes(ThemeDatabase database) 
+        {
+            if (LoadThemeStatus(out List<ThemeStatus> themeStatuses) &&
+                themeStatuses.Count == database.themes.Count)
+            {
+                DefaultThemeIni(database, themeStatuses);
+            }
+            else
+            {
+                CreateNewStatusesAndIni(database, themeStatuses);
             }
         }
 
-        private void CreateFirstSave()
+        private void DefaultThemeIni(ThemeDatabase database, List<ThemeStatus> themeStatuses) 
         {
-            SaveData();
+            _themes = new Dictionary<Theme, ThemeStatus>();
+            int i = 0;
+            foreach (Theme theme in database.themes)
+            {
+                _themes.Add(theme, themeStatuses[i++]);
+            }
         }
 
-        private void IniRepository(ThemeRepositoryData data)
+        private void CreateNewStatusesAndIni(ThemeDatabase database, List<ThemeStatus> themeStatuses) 
         {
-            activeThemeIndex = data.activeThemeIndex;
-            isThemeOpen = data.isThemeOpen;
+            _themes = new Dictionary<Theme, ThemeStatus>();
+            foreach (Theme theme in database.themes)
+            {
+                _themes.Add(theme, ThemeStatus.Close);
+            }
+            _themes[database.themes[0]] = ThemeStatus.Selected;
+            SaveCurrentStatuses();
         }
     }
-
 }

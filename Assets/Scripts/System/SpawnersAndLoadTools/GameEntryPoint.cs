@@ -2,10 +2,11 @@ using Services;
 using Services.GameState;
 using UnityEngine;
 using ViewElements;
+using Services.Economic;
 
 public class GameEntryPoint : MonoBehaviour
 {
-    private ThemeRepository _themeRepository;
+    private IThemeService _themeRepository;
     private FigureRepository _figureRepository;
 
     [SerializeField] private Transform FigurePosition;
@@ -17,7 +18,7 @@ public class GameEntryPoint : MonoBehaviour
 
     public void Awake()
     {
-        _themeRepository = FindObjectOfType<ThemeRepository>();
+        _themeRepository = ServiceLockator.instance.GetService<IThemeService>();
         _figureRepository = FindObjectOfType<FigureRepository>();
         _ballSpawner = FindObjectOfType<BallSpawner>();
         LoadScene();
@@ -39,7 +40,6 @@ public class GameEntryPoint : MonoBehaviour
 
     private void LoadDataToRepository()
     {
-        _themeRepository.LoadData();
         _figureRepository.LoadData();
     }
 
