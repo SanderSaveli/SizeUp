@@ -10,6 +10,7 @@ namespace Services
     public class ServiceRegistrar : MonoBehaviour
     {
         [SerializeField] private ThemeDatabase _themeDatabase;
+        [SerializeField] private FigureDatabase _figureDatabase;
         private void Awake()
         {
             ServiceLockator lockator = ServiceLockator.instance;
@@ -18,7 +19,10 @@ namespace Services
             lockator.RegisterService<ISceneLoadService>(new SceneLoader());
             lockator.RegisterService<IScoreService>(new GameScoreService());
             lockator.RegisterService<IBankService>(new Bank());
-            lockator.RegisterService<IThemeService>(new ThemeRepository(_themeDatabase));
+            lockator.RegisterService<IThemeService>(new ThemeRepository(_themeDatabase, 
+                lockator.GetService<IStoregeService>(), lockator.GetService<IBankService>()));
+            lockator.RegisterService<IFigureService>(new FigureRepository(_figureDatabase,
+                lockator.GetService<IStoregeService>(), lockator.GetService<IBankService>()));
         }
     }
 }

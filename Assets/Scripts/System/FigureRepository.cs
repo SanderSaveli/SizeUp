@@ -1,57 +1,55 @@
-using Services;
 using Services.StorageService;
-using System;
-using System.IO;
-using UnityEngine;
-using Singletones;
+using System.Collections.Generic;
 
-public class FigureRepository : Singletone<FigureRepository>
+namespace Services.Economic
 {
-    [field: SerializeField] public GameObject[] figures { get; private set; }
-    [field: SerializeField] public int activeFigureIndex { get; private set; }
-    [field: SerializeField] public bool[] isFigureOpen { get; private set; }
-
-    private string saveKey = "FigureReposirory";
-    [Serializable]
-    public struct FigureRepositoryData
+    public class FigureRepository : IFigureService
     {
-        public int activeFigureIndex;
-        public bool[] isFigureOpen;
-    }
-
-    public GameObject GetActiveFigure()
-    {
-        return figures[activeFigureIndex];
-    }
-    public void SaveData()
-    {
-        FigureRepositoryData currentData = new FigureRepositoryData();
-        currentData.activeFigureIndex = activeFigureIndex;
-        currentData.isFigureOpen = isFigureOpen;
-        ServiceLockator.instance.GetService<IStoregeService>().Save(saveKey, currentData);
-
-    }
-    public void LoadData()
-    {
-        try 
+        public event IFigureService.NewFigureSelected OnNewFigureSelected;
+        public Figure selectedFigure
         {
-                ServiceLockator.instance.GetService<IStoregeService>().CallbackLoad<FigureRepositoryData>(saveKey, IniRepository);
+            get => _selectedFigure;
+            private set
+            {
+                selectedFigure = value;
+                OnNewFigureSelected?.Invoke(value);
+            }
         }
-        catch (FileNotFoundException) 
+        private Figure _selectedFigure;
+
+        public IReadOnlyDictionary<Figure, ItemStatus> figures => _seller.allItems;
+
+        private const string _saveKey = "figureRepository";
+        private Seller<Figure> _seller;
+
+        public FigureRepository(FigureDatabase database, IStoregeService storegeService, IBankService bank)
         {
-            CreateFirstSave();
-            LoadData();
+            _seller = new Seller<Figure>(database.figures, storegeService, bank, _saveKey);
+            _seller.OnNewItemSelected += SelectNewFigure;
         }
-    }
+        public void Initialize()
+        {
+            _selectedFigure = _seller.selectedItem;
+        }
 
-    private void CreateFirstSave()
-    {
-        SaveData();
-    }
+        public bool OpenFigure(Figure figure)
+        {
+            return _seller.OpenItem(figure);
+        }
 
-    private void IniRepository(FigureRepositoryData data)
-    {
-        activeFigureIndex = data.activeFigureIndex;
-        isFigureOpen = data.isFigureOpen;
+        public bool SelectFigure(Figure figure)
+        {
+            return _seller.SelectItem(figure);
+        }
+
+        public void Shutdown()
+        {
+
+        }
+
+        private void SelectNewFigure(Figure figure)
+        {
+            selectedFigure = figure;
+        }
     }
 }

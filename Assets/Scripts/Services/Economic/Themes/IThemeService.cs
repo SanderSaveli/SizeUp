@@ -8,7 +8,7 @@ namespace Services.Economic
         public delegate void NewThemeSelected(Theme theme);
         public event NewThemeSelected OnNewThemeSelected;
         public Theme selectedTheme { get; }
-        public IReadOnlyDictionary<Theme, ThemeStatus> themes { get; }
+        public IReadOnlyDictionary<Theme, ItemStatus> themes { get; }
 
         public bool OpenTheme(Theme theme);
         public bool SelectTheme(Theme theme);

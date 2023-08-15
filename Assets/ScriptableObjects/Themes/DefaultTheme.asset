@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c7f53f27e6661488ae3785c363e99c, type: 3}
   m_Name: DefaultTheme
   m_EditorClassIdentifier: 
-  _cost: 0
+  <price>k__BackingField: 0
+  <potrait>k__BackingField: {fileID: -1820855602, guid: f35d34dcd79e32f46b35965abbd27db3,
+    type: 3}
   _buttonThemePresets:
     _buttonColor: {r: 0.46274513, g: 0.6431373, b: 0.9058824, a: 1}
     _iconColor: {r: 1, g: 1, b: 1, a: 1}

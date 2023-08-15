@@ -1,6 +1,6 @@
 namespace Services.Economic
 {
-    public enum ThemeStatus
+    public enum ItemStatus
     {
         Open,
         Close,

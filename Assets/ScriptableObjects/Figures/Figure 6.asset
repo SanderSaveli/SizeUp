@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d321ac642b4b1b4ea47a58334f3ae4c, type: 3}
+  m_Name: Figure 6
+  m_EditorClassIdentifier: 
+  <price>k__BackingField: 200
+  <potrait>k__BackingField: {fileID: 1198387374, guid: 339d8af21ccd18a46a333984e286ac63,
+    type: 3}
+  <figureObject>k__BackingField: {fileID: 805936228926504218, guid: 84411118da8c0fd40a7d97d9a9e9b174,
+    type: 3}

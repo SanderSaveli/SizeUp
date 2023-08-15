@@ -1872,7 +1872,6 @@ GameObject:
   - component: {fileID: 1737173827}
   - component: {fileID: 1737173828}
   - component: {fileID: 1737173830}
-  - component: {fileID: 1737173832}
   - component: {fileID: 1737173833}
   - component: {fileID: 1737173834}
   m_Layer: 0
@@ -1943,29 +1942,6 @@ MonoBehaviour:
     type: 3}
   _spawnAraeRadius: 2.5
   _spawnAreaCenter: {x: 0, y: 1, z: 0}
---- !u!114 &1737173832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737173823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b8392183704ac4a81b2b0ad66de28d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <figures>k__BackingField:
-  - {fileID: 842737468946489715, guid: c2544a6177d8c054f8f4d949ea87ab63, type: 3}
-  - {fileID: 1454040989395169138, guid: 73f21dac9255e044a8c7e0ab43ba13d9, type: 3}
-  - {fileID: 5755386891392071012, guid: 7885ff6c689fa4e448dbc199e009e976, type: 3}
-  - {fileID: 7890949964051850516, guid: d107721d4ee17244e8634dc8e60f2308, type: 3}
-  - {fileID: 5230906577051842565, guid: fb76069c0c55a2e4d8af2f92f1989084, type: 3}
-  - {fileID: 805936228926504218, guid: 84411118da8c0fd40a7d97d9a9e9b174, type: 3}
-  - {fileID: 6198297026026149985, guid: f460f48086a96b44e9bb289300e899c5, type: 3}
-  - {fileID: 1678940026298297364, guid: 7b0f3ec926063cc4295f8cac8b309b0b, type: 3}
-  <activeFigureIndex>k__BackingField: 0
-  <isFigureOpen>k__BackingField: 0100000000000000
 --- !u!114 &1737173833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1979,6 +1955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _themeDatabase: {fileID: 11400000, guid: ebf2e0c9c06871d429dddc5c49c38eac, type: 2}
+  _figureDatabase: {fileID: 11400000, guid: b94c31ae1036edb4484a2c70e6235f50, type: 2}
 --- !u!114 &1737173834
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,8 +6,6 @@ using Services.Economic;
 
 public class GameEntryPoint : MonoBehaviour
 {
-    private IThemeService _themeRepository;
-    private FigureRepository _figureRepository;
 
     [SerializeField] private Transform FigurePosition;
     [SerializeField] private float EnemyCount;
@@ -18,15 +16,12 @@ public class GameEntryPoint : MonoBehaviour
 
     public void Awake()
     {
-        _themeRepository = ServiceLockator.instance.GetService<IThemeService>();
-        _figureRepository = FindObjectOfType<FigureRepository>();
         _ballSpawner = FindObjectOfType<BallSpawner>();
         LoadScene();
     }
 
     public void LoadScene()
     {
-        LoadDataToRepository();
         SetGameState();
         SpawnActiveFigure();
         SpawnPlayerAndEnemy();
@@ -38,14 +33,10 @@ public class GameEntryPoint : MonoBehaviour
             ChangeSceneState(new StateMenu());
     }
 
-    private void LoadDataToRepository()
-    {
-        _figureRepository.LoadData();
-    }
-
     private void SpawnActiveFigure()
     {
-        Instantiate(_figureRepository.GetActiveFigure(), _figurePosition);
+        IFigureService figureRepository = ServiceLockator.instance.GetService<IFigureService>();
+        Instantiate(figureRepository.selectedFigure.figureObject, _figurePosition);
     }
 
     private void SpawnPlayerAndEnemy()
