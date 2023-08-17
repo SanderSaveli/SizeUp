@@ -5,7 +5,7 @@ namespace Shop
 {
     public interface IItemPlace
     {
-        public IReadOnlyList<IShopSlotView> PlaceItems(IReadOnlyDictionary<ISold, ItemStatus> items);
+        public IReadOnlyList<IShopSlotView> PlaceItems<T>(List<ShopSlot<T>> items) where T:ISold;
     }
 }
 

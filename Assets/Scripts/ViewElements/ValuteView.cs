@@ -5,7 +5,7 @@ using TMPro;
 
 public class ValuteView : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _bestScoreText;
+    [SerializeField] private TMP_Text _valuteText;
     private IBankService _bank;
     private void OnEnable()
     {
@@ -21,6 +21,6 @@ public class ValuteView : MonoBehaviour
 
     private void ChangeValute(int score)
     {
-        _bestScoreText.text = score.ToString();
+        _valuteText.text = score.ToString();
     }
 }

@@ -27,7 +27,12 @@ PrefabInstance:
     - target: {fileID: 2521980872818804888, guid: a0c2555616cfc684a889349dc563c917,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: Click
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521980872818804888, guid: a0c2555616cfc684a889349dc563c917,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ViewElements.Button.ShopButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2521980872818804889, guid: a0c2555616cfc684a889349dc563c917,
         type: 3}

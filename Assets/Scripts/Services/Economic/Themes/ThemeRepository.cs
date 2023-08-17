@@ -44,7 +44,7 @@ namespace Services.Economic
 
         public bool SelectTheme(Theme theme)
         {
-            return _themeSeller.OpenItem(theme);
+            return _themeSeller.SelectItem(theme);
         }
 
         private void SelectNewTheme(Theme theme) 

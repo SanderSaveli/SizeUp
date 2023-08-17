@@ -30,6 +30,7 @@ namespace Services.Economic
         public Seller(List<T> items, IStoregeService storegeService, IBankService bank, string saveKey)
         {
             _storegeService = storegeService;
+            _bankService = bank;
             _saveKey = saveKey;
             IniItems(items);
             _selectedItem = FindSelectedItem();

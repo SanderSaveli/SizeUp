@@ -1,4 +1,6 @@
+using Services;
 using UnityEngine;
+using Services.SceneLoad;
 
 namespace ViewElements.Button 
 {
@@ -6,7 +8,8 @@ namespace ViewElements.Button
     {
         public override void Click()
         {
-            Debug.Log("Shop");
+            ServiceLockator.instance.GetService<ISceneLoadService>().
+                LoadScene(SceneNames.Shop);
         }
     }
 

@@ -10,13 +10,13 @@ namespace Shop
         [SerializeField] private SlotView _shopSlot;
         private List<IShopSlotView> _acktiveView = new();
         private Stack<IShopSlotView> _disabledView = new();
-        public IReadOnlyList<IShopSlotView> PlaceItems(IReadOnlyDictionary<ISold, ItemStatus> items)
+        public IReadOnlyList<IShopSlotView> PlaceItems<T>(List<ShopSlot<T>> items) where T : ISold
         {
             AckticateSlots(items.Count);
             int i = 0;
-            foreach (KeyValuePair<ISold, ItemStatus> item in items)
+            foreach (IShopSlot item in items)
             {
-                _acktiveView[i++].SetNewItem(item.Key, item.Value);
+                _acktiveView[i++].SetNewItem(item);
             }
             return _acktiveView;
         }
