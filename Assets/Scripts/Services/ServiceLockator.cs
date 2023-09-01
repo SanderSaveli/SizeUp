@@ -11,11 +11,29 @@ namespace Services
     {
         private Dictionary<Type, IService> _services = new();
 
-        public void RegisterService<T>(T service) where T:IService
+        public bool RegisterService<T>(T service) where T:IService
         {
             var type = typeof(T);
-            if (_services.ContainsKey(type))
+            if (_services.ContainsKey(type)) 
+            {
+                Debug.LogWarning($"You already have {type} setvice, use ChabgeOrRegistrateService if you need change service.");
+                return false;
+            }
+            else 
+            {
+                ChabgeOrRegistrateService(service);
+                return true;    
+            }
+        }
+
+        public void ChabgeOrRegistrateService<T>(T service) where T: IService 
+        {
+            var type = typeof(T);
+            if (_services.ContainsKey(type)) 
+            {
+                _services[type].Shutdown();
                 _services[type] = service;
+            }
             else
                 _services.Add(type, service);
             service.Initialize();
