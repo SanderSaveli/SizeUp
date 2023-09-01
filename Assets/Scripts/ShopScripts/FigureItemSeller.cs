@@ -17,7 +17,6 @@ namespace Shop
 
         protected override void ClickOnSlot(ShopSlot<Figure> slot)
         {
-            Debug.Log("Click3");
             switch (slot.itemStatus)
             {
                 case ItemStatus.Close:

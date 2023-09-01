@@ -74,7 +74,6 @@ namespace Shop
             if (_isActive)
             {
                 _slot.ClickOnSlot();
-                Debug.Log("Click");
             }
         }
 

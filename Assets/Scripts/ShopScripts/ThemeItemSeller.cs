@@ -22,18 +22,15 @@ namespace Shop
                     if (_themeService.OpenTheme(slot._item))
                     {
                         Open(slot);
-                        Debug.Log(slot.itemStatus);
                     }
                     break;
                 case ItemStatus.Open:
                     if (_themeService.SelectTheme(slot._item))
                     {
                         Select(slot);
-                        Debug.Log(slot.itemStatus);
                     }
                     break;
                 case ItemStatus.Selected:
-                    Debug.Log(slot.itemStatus);
                     break;
             }
         }

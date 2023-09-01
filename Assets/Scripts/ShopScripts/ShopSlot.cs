@@ -23,7 +23,6 @@ public class ShopSlot<T> : IShopSlot where T: ISold
     public void ClickOnSlot()
     {
         OnSlotClicked?.Invoke(this);
-        Debug.Log("Click2");
     }
 
     public void ChangeStatus(ItemStatus status)

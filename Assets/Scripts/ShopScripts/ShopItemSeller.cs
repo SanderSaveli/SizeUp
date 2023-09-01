@@ -38,6 +38,7 @@ namespace Shop
             {
                 _selectedSlot.ChangeStatus(ItemStatus.Open);
                 slot.ChangeStatus(ItemStatus.Selected);
+                _selectedSlot = slot;
             }
         }
 

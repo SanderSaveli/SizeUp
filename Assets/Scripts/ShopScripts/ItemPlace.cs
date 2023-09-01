@@ -33,19 +33,19 @@ namespace Shop
         {
             if (_acktiveView.Count > count)
             {
-                for (int i = _acktiveView.Count - 1; i >= count; i--)
+                for (int i = _acktiveView.Count-1; i >= count; i--)
                 {
                     IShopSlotView curr = _acktiveView[i];
-                    curr.Disable();
                     _acktiveView.Remove(curr);
                     _disabledView.Push(curr);
+                    curr.Disable();
                 }
             }
             else if (_acktiveView.Count < count)
             {
                 for (int i = _acktiveView.Count - 1; i < count; i++)
                 {
-                    if (_disabledView.TryPeek(out IShopSlotView shopSlotView))
+                    if (_disabledView.TryPop(out IShopSlotView shopSlotView))
                     {
                         shopSlotView.Enable();
                         _acktiveView.Add(shopSlotView);

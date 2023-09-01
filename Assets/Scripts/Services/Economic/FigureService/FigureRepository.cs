@@ -11,7 +11,7 @@ namespace Services.Economic
             get => _selectedFigure;
             private set
             {
-                selectedFigure = value;
+                _selectedFigure = value;
                 OnNewFigureSelected?.Invoke(value);
             }
         }
