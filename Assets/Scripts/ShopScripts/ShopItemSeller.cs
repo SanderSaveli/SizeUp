@@ -1,3 +1,4 @@
+using EventBusSystem;
 using Services.Economic;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace Shop
                 _selectedSlot.ChangeStatus(ItemStatus.Open);
                 slot.ChangeStatus(ItemStatus.Selected);
                 _selectedSlot = slot;
+                EventBus.RaiseEvent<IItemStatusChanged>(it => it.ItemSelected(slot));
             }
         }
 
@@ -47,6 +49,7 @@ namespace Shop
             if (_items.Contains(slot))
             {
                 slot.ChangeStatus(ItemStatus.Open);
+                EventBus.RaiseEvent<IItemStatusChanged>(it => it.ItemBought(slot));
             }
         }
     }

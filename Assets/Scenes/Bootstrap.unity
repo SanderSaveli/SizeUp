@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1097414415}
   - component: {fileID: 1097414414}
   - component: {fileID: 1097414413}
+  - component: {fileID: 1097414416}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -159,7 +160,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -215,3 +216,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1097414416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097414412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55c076255ace8b4598bcabbf7dff6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _themeDatabase: {fileID: 11400000, guid: ebf2e0c9c06871d429dddc5c49c38eac, type: 2}
+  _figureDatabase: {fileID: 11400000, guid: b94c31ae1036edb4484a2c70e6235f50, type: 2}
+  audioDatabase: {fileID: 11400000, guid: 319e7118a3e881840b0f87b27d502c2c, type: 2}

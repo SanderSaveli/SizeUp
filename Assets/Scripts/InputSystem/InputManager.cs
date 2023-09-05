@@ -4,6 +4,7 @@ using EventBusSystem;
 public class InputManager : MonoBehaviour
 {
     private PlayerInput _playerInput;
+    private bool _isAcktive;
 
     private void Awake()
     {
@@ -12,11 +13,13 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
+        _isAcktive = true;
         _playerInput.Enable();
     }
 
     private void OnDisable()
     {
+        _isAcktive = false;
         _playerInput.Disable();
     }
 
@@ -28,10 +31,12 @@ public class InputManager : MonoBehaviour
 
     private void StartTouchPrimary()
     {
-        EventBus.RaiseEvent<ITouchHandler>(it => it.StartTouch());
+        if(_isAcktive)
+            EventBus.RaiseEvent<ITouchHandler>(it => it.StartTouch());
     }
     private void EndTouchPrimary()
     {
-        EventBus.RaiseEvent<ITouchHandler>(it => it.EndTouch());
+        if(_isAcktive)
+            EventBus.RaiseEvent<ITouchHandler>(it => it.EndTouch());
     }
 }

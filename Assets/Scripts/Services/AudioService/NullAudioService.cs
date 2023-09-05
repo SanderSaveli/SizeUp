@@ -6,6 +6,9 @@ namespace Services.Audio
         public void ChangeSoundtrack()
         { }
 
+        public void ChangeSoundtrack(AudioClip audio)
+        { }
+
         public void ChangeVolume(float volume)
         { }
 
@@ -16,6 +19,12 @@ namespace Services.Audio
         { }
 
         public void Shutdown()
+        { }
+
+        public void TurnOnAudio(bool isPlay)
+        { }
+
+        public void TurnOnSounds(bool isPlay)
         { }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ViewElements.Button;
+using EventBusSystem;
 
 namespace ViewElements
 {
@@ -28,6 +29,7 @@ namespace ViewElements
                 _selecktedTongue?.SwitchOff();
                 _selecktedTongue = tongue;
                 tongue.SwitchOn();
+                EventBus.RaiseEvent<IButtonClickHandler>(it => it.ButtonClicked(typeof(TongueButton)));
             }
         }
     }

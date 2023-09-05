@@ -1,12 +1,18 @@
+using System;
 using UnityEngine;
+using EventBusSystem;
 
 namespace ViewElements.Button
 {
     public abstract class Button : MonoBehaviour
     {
         [SerializeField] private ButtonView _buttonVisual;
+        protected abstract Type _buttonTupe {get;} 
 
-        public abstract void Click();
+        public virtual void Click() 
+        {
+            EventBus.RaiseEvent<IButtonClickHandler>(it => it.ButtonClicked(_buttonTupe));
+        }
 
         public virtual void Show()
         {

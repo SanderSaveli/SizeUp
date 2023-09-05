@@ -1,5 +1,4 @@
 using Services.StorageService;
-using System;
 using System.Collections.Generic;
 using ViewElements;
 
@@ -9,16 +8,18 @@ namespace Services.Economic
     {
         public event IThemeService.NewThemeSelected OnNewThemeSelected;
 
-        public Theme selectedTheme { get => _selectedTheme;
+        public Theme selectedTheme
+        {
+            get => _selectedTheme;
             private set
-            { 
+            {
                 _selectedTheme = value;
                 OnNewThemeSelected?.Invoke(value);
             }
         }
         private Theme _selectedTheme;
 
-        public IReadOnlyDictionary<Theme, ItemStatus> themes { get => _themeSeller.allItems;}
+        public IReadOnlyDictionary<Theme, ItemStatus> themes { get => _themeSeller.allItems; }
 
         private Seller<Theme> _themeSeller;
         private const string _saveKey = "ThemeStatuses";
@@ -35,7 +36,7 @@ namespace Services.Economic
         }
 
         public void Shutdown()
-        {    }
+        { }
 
         public bool OpenTheme(Theme theme)
         {
@@ -47,7 +48,7 @@ namespace Services.Economic
             return _themeSeller.SelectItem(theme);
         }
 
-        private void SelectNewTheme(Theme theme) 
+        private void SelectNewTheme(Theme theme)
         {
             selectedTheme = theme;
         }

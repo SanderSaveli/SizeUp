@@ -35,11 +35,11 @@ namespace Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            ChangeDirection(collision.contacts[0].normal);
-            if(isRise && collision.gameObject.GetComponent<EnemyBall>() != null) 
+            if (isRise && collision.gameObject.GetComponent<EnemyBall>() != null)
             {
                 Death();
             }
+            ChangeDirection(collision.contacts[0].normal);
         }
 
         void ITouchHandler.StartTouch()

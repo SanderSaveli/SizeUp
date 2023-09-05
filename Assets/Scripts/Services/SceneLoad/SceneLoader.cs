@@ -1,3 +1,4 @@
+using EventBusSystem;
 using UnityEngine.SceneManagement;
 
 namespace Services.SceneLoad
@@ -13,6 +14,7 @@ namespace Services.SceneLoad
         {
             currentSceneData = sceneData;
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            EventBusSystem.EventBus.RaiseEvent<ISceneChangedHandler>(it => it.SceneChanged(sceneName));
         }
 
         public void Shutdown()
