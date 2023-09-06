@@ -20,6 +20,11 @@ namespace Services.StorageService
         {
             return default(T);
         }
+
+        public bool HasKey(string key)
+        {
+            return false;
+        }
     }
 }
 

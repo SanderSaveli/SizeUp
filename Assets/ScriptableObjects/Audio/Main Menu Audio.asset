@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b29c3e92a515cc4d976364d1af2a05a, type: 3}
   m_Name: Main Menu Audio
   m_EditorClassIdentifier: 
-  mainTheme: {fileID: 8300000, guid: fc19409ca7139ca4daf440cf701b49b2, type: 3}
-  GameStart: {fileID: 8300000, guid: b4e71525c1d448942adc559605489a93, type: 3}
-  GameEnd: {fileID: 8300000, guid: 46dea59ee05811045b4d79772cf90346, type: 3}
-  ButtonClick: {fileID: 8300000, guid: 2dccd101362065e40ac707a7c913a9ad, type: 3}
+  _mainTheme: {fileID: 8300000, guid: fc19409ca7139ca4daf440cf701b49b2, type: 3}
+  _gameStart: {fileID: 8300000, guid: b4e71525c1d448942adc559605489a93, type: 3}
+  _gameEnd: {fileID: 8300000, guid: 46dea59ee05811045b4d79772cf90346, type: 3}
+  _buttonClick: {fileID: 0}

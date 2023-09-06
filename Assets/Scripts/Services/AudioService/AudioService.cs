@@ -1,4 +1,5 @@
 using UnityEngine;
+using Services.StorageService;
 
 namespace Services.Audio
 {
@@ -10,9 +11,14 @@ namespace Services.Audio
         private AudioDatabase _database;
         private AudioEventCatcher _eventCatcher;
 
-        public AudioService(AudioDatabase audioDatabase) 
+        private IStoregeService _storegeService;
+        private const string _soundKey = "soundKey";
+        private const string _audioKey = "audioKey";
+
+        public AudioService(AudioDatabase audioDatabase, IStoregeService storegeService) 
         { 
             _database = audioDatabase;
+            _storegeService = storegeService;
         }
         public void Initialize()
         {
@@ -20,8 +26,13 @@ namespace Services.Audio
             _audioSource = audioObj.AddComponent<AudioSource>();
             GameObject.DontDestroyOnLoad(audioObj);
             _eventCatcher = new AudioEventCatcher(this, _database);
-            _playSounds = true;
-            _playAudio = true;
+            if (!_storegeService.HasKey(_audioKey)) 
+            {
+                _storegeService.Save(_audioKey, true);
+                _storegeService.Save(_soundKey, true);
+            }
+            _playSounds = _storegeService.Load<bool>(_soundKey);
+            _playAudio = _storegeService.Load<bool>(_audioKey);
         }
 
         public void Shutdown()

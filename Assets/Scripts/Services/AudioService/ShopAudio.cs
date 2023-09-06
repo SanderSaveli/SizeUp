@@ -4,13 +4,20 @@ using UnityEngine;
 public class ShopAudio : ScriptableObject
 {
     [Header("Audio")]
-    public AudioClip mainShopTheme;
+    [SerializeField] private AudioClip _mainShopTheme;
 
     [Space]
     [Header("Sounds")]
-    public AudioClip buy;
-    public AudioClip selection;
-    public AudioClip changeTongue;
-    public AudioClip shopOpen;
-    public AudioClip shopClosed;
+    [SerializeField] private AudioClip _buy;
+    [SerializeField] private AudioClip _selection;
+    [SerializeField] private AudioClip _changeTongue;
+    [SerializeField] private AudioClip _shopOpen;
+    [SerializeField] private AudioClip _shopClosed;
+
+    public AudioClip mainShopTheme => _mainShopTheme;
+    public AudioClip buy => _buy;
+    public AudioClip selection => _selection;
+    public AudioClip changeTongue => _changeTongue;
+    public AudioClip shopOpen => _shopOpen;
+    public AudioClip shopClosed => _shopClosed;
 }

@@ -27,7 +27,9 @@ namespace Services
                 lockator.GetService<IStoregeService>(), lockator.GetService<IBankService>()));
             lockator.RegisterService<IFigureService>(new FigureRepository(_figureDatabase,
                 lockator.GetService<IStoregeService>(), lockator.GetService<IBankService>()));
-            lockator.RegisterService<IAudioService>(new AudioService(audioDatabase));
+            lockator.RegisterService<IAudioService>(new AudioService(audioDatabase,
+                lockator.GetService<IStoregeService>()));
+
             lockator.GetService<ISceneLoadService>().LoadScene(SceneNames.Menu);
         }
     }

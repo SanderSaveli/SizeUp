@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: DefaultTheme
   m_EditorClassIdentifier: 
   <price>k__BackingField: 0
-  <potrait>k__BackingField: {fileID: -1820855602, guid: f35d34dcd79e32f46b35965abbd27db3,
+  <potrait>k__BackingField: {fileID: -120435746, guid: 8811ab73923f0f14388cb0a6b6b61f69,
     type: 3}
   _buttonThemePresets:
     _buttonColor: {r: 0.46274513, g: 0.6431373, b: 0.9058824, a: 1}
     _iconColor: {r: 1, g: 1, b: 1, a: 1}
   _enemyThemePresets:
-    _enemyBall: {fileID: 21300000, guid: c679d4bef9226fd49a8a44472a2c7020, type: 3}
+    _enemyBall: {fileID: -1860753146, guid: 8811ab73923f0f14388cb0a6b6b61f69, type: 3}
   _playerThemePresets:
-    _playerBall: {fileID: -2359155262383220303, guid: 20f9c42e6e62390489a45f7e21a26186,
-      type: 3}
+    _playerBall: {fileID: -1462166878, guid: 8811ab73923f0f14388cb0a6b6b61f69, type: 3}
   _backgroundThemePrisets:
-    _background: {fileID: 21300000, guid: 78a55ecc93d9037428e3ec562b8162ac, type: 3}
+    _background: {fileID: -294846403, guid: 8811ab73923f0f14388cb0a6b6b61f69, type: 3}
+    _figureColor: {r: 0.6509804, g: 0, b: 0, a: 1}
+  _audio: {fileID: 11400000, guid: 5d2e08744c18ccb43953be6bc78d0eb4, type: 2}

@@ -3,6 +3,8 @@ using Services.SceneLoad;
 using Shop;
 using System;
 using ViewElements.Button;
+using ViewElements;
+using Services.Economic;
 
 namespace Services.Audio
 {
@@ -34,17 +36,19 @@ namespace Services.Audio
             else if (butttonType == typeof(TongueButton))
                 _audioService.PlaySound(_shopAudio.changeTongue);
             else
-                _audioService.PlaySound(_menuAudio.ButtonClick);
+                _audioService.PlaySound(_menuAudio.buttonClick);
         }
 
         public void GameEnd()
         {
-            _audioService.PlaySound(_menuAudio.GameEnd);
+            _audioService.PlaySound(_menuAudio.gameEnd);
+            _audioService.ChangeSoundtrack(null);
         }
 
         public void GameStart()
         {
-            _audioService.PlaySound(_menuAudio.GameStart);
+            _audioService.PlaySound(_menuAudio.gameStart);
+            _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
         }
 
         public void ItemBought(IShopSlot shopSlot)
@@ -59,8 +63,11 @@ namespace Services.Audio
 
         public void SceneChanged(string sceneName)
         {
-            if (sceneName == SceneNames.Menu)
+            if (sceneName == SceneNames.Menu) 
+            {
+                _menuAudio = ServiceLockator.instance.GetService<IThemeService>().selectedTheme.audio; 
                 _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
+            }
             else if (sceneName == SceneNames.Shop)
                 _audioService.ChangeSoundtrack(_shopAudio.mainShopTheme);
         }

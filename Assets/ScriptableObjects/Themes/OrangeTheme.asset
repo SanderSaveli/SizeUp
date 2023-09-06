@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c7f53f27e6661488ae3785c363e99c, type: 3}
+  m_Name: OrangeTheme
+  m_EditorClassIdentifier: 
+  <price>k__BackingField: 120
+  <potrait>k__BackingField: {fileID: 1540282283, guid: 32d94ae795b686b4fadfb3e7e1d43cdb,
+    type: 3}
+  _buttonThemePresets:
+    _buttonColor: {r: 1, g: 0.7411765, b: 0, a: 1}
+    _iconColor: {r: 1, g: 1, b: 1, a: 1}
+  _enemyThemePresets:
+    _enemyBall: {fileID: 875886666, guid: 32d94ae795b686b4fadfb3e7e1d43cdb, type: 3}
+  _playerThemePresets:
+    _playerBall: {fileID: 2045341363, guid: 32d94ae795b686b4fadfb3e7e1d43cdb, type: 3}
+  _backgroundThemePrisets:
+    _background: {fileID: 778108838, guid: 32d94ae795b686b4fadfb3e7e1d43cdb, type: 3}
+    _figureColor: {r: 0.9433962, g: 0.792126, b: 0.43075827, a: 1}
+  _audio: {fileID: 11400000, guid: 5d2e08744c18ccb43953be6bc78d0eb4, type: 2}

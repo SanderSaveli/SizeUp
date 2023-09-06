@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.InputSystem;
 
 namespace Services.StorageService
 {
@@ -54,6 +55,30 @@ namespace Services.StorageService
             catch (FileNotFoundException) 
             {
                 return LogAndretirnDefaultValue<T>();
+            }
+        }
+
+        public bool HasKey(string key) 
+        {
+            string path = BuildPath(key);
+            try
+            {
+                using (var file = new StreamReader(path))
+                {
+                    string json = file.ReadToEnd();
+                    if(json != null) 
+                    {
+                        return true;
+                    }
+                    else 
+                    { 
+                        return false;
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
             }
         }
 
