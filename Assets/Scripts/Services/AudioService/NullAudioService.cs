@@ -3,6 +3,9 @@ namespace Services.Audio
 {
     public class NullAudioService : IAudioService
     {
+        public bool isSoundOn { get; set; }
+        public bool isAudioOn { get; set; }
+
         public void ChangeSoundtrack()
         { }
 

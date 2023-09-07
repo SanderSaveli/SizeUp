@@ -5,9 +5,15 @@ namespace Services.Audio
 {
     public class AudioService : IAudioService
     {
+        public bool isSoundOn { get => _isSoundOn; set => TurnOnSounds(value); }
+        public bool isAudioOn { get => _isAudioOn; set => TurnOnAudio(value); }
+
+        private bool _isSoundOn;
+        private bool _isAudioOn;
+
+        private AudioClip _mainTheme;
+
         private AudioSource _audioSource;
-        private bool _playSounds;
-        private bool _playAudio;
         private AudioDatabase _database;
         private AudioEventCatcher _eventCatcher;
 
@@ -31,16 +37,16 @@ namespace Services.Audio
                 _storegeService.Save(_audioKey, true);
                 _storegeService.Save(_soundKey, true);
             }
-            _playSounds = _storegeService.Load<bool>(_soundKey);
-            _playAudio = _storegeService.Load<bool>(_audioKey);
+            TurnOnSounds(_storegeService.Load<bool>(_soundKey));
+            TurnOnAudio(_storegeService.Load<bool>(_audioKey));
         }
 
         public void Shutdown()
         {
             GameObject.Destroy(_audioSource);
             _eventCatcher = null;
-            _playSounds = false;
-            _playAudio = false;
+            _isSoundOn = false;
+            _isAudioOn = false;
         }
 
         ~AudioService()
@@ -50,9 +56,12 @@ namespace Services.Audio
 
         public void ChangeSoundtrack(AudioClip audio)
         {
-            _audioSource.clip = audio;
-            if(_playAudio)
+            _mainTheme = audio;
+            if (_isAudioOn) 
+            { 
+                _audioSource.clip = audio;
                 _audioSource.Play();
+            }
         }
 
         public void ChangeVolume(float volume)
@@ -62,24 +71,32 @@ namespace Services.Audio
 
         public void PlaySound(AudioClip sound)
         {
-            if (_playSounds) 
+            if (_isSoundOn) 
             {
                 _audioSource.PlayOneShot(sound);
             }
         }
 
-        public void TurnOnSounds(bool isPlay)
+        private void TurnOnSounds(bool isPlay)
         {
-            _playAudio = isPlay;
+            _isSoundOn = isPlay;
+            _storegeService.Save(_soundKey, isPlay);
         }
 
-        public void TurnOnAudio(bool isPlay)
+        private void TurnOnAudio(bool isPlay)
         {
-            _playSounds = isPlay;
-            if (isPlay)
+            _isAudioOn = isPlay;
+            if (isPlay) 
+            {
+                _audioSource.clip = _mainTheme;
                 _audioSource.Play();
+            } 
             else 
-                _audioSource.Stop();
+            {
+                _audioSource.Pause();
+                _audioSource.clip = null;
+            }
+            _storegeService.Save(_audioKey, isPlay);
         }
     }
 

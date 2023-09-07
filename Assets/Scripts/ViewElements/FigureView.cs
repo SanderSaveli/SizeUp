@@ -8,7 +8,7 @@ namespace ViewElements
         [SerializeField] private SpriteRenderer _image;
         public override void ChangeTheme(Theme theme)
         {
-            _image.color = theme.BackgroundTheme.FigureColor;
+            _image.color = theme.BackgroundTheme.figureColor;
         }
     }
 }

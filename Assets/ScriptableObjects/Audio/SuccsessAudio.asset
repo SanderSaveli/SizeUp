@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0972c129329887349b7c214f4f822c70, type: 3}
+  m_Name: SuccsessAudio
+  m_EditorClassIdentifier: 
+  _one: {fileID: 8300000, guid: 08d7d53bfa6d954439621651dfceda09, type: 3}
+  _two: {fileID: 8300000, guid: 4d97ed6db2dbd4243802b468ae2a4f53, type: 3}
+  _three: {fileID: 8300000, guid: 12dc3c67a9eb38a4ea60990ed4ee0e94, type: 3}
+  _four: {fileID: 8300000, guid: 91f231cd9de451e45a9a603b6a6d7c63, type: 3}
+  _five: {fileID: 8300000, guid: 19161226940c9f743a7f614a3e554167, type: 3}
+  _six: {fileID: 8300000, guid: 69b63b83dd534b647a77f8deafbbf4c9, type: 3}
+  _seven: {fileID: 8300000, guid: cc1faf565ed6eca4eac9077d7832de0f, type: 3}

@@ -1,10 +1,9 @@
 using EventBusSystem;
+using Services.Economic;
 using Services.SceneLoad;
 using Shop;
 using System;
 using ViewElements.Button;
-using ViewElements;
-using Services.Economic;
 
 namespace Services.Audio
 {
@@ -19,6 +18,7 @@ namespace Services.Audio
             _audioService = audioService;
             _menuAudio = audioDatabase.menuAudio;
             _shopAudio = audioDatabase.shopAudio;
+            ServiceLockator.instance.GetService<IScoreService>().NewLastIncreaseChanged += ScoreAdd;
             EventBus.Subscribe(this);
         }
 
@@ -29,8 +29,10 @@ namespace Services.Audio
 
         public void ButtonClicked(Type butttonType)
         {
-            if (butttonType == typeof(PlayButton) || butttonType == typeof(RestartButton))
+            if (butttonType == typeof(PlayButton))
             { }
+            else if (butttonType == typeof(RestartButton))
+                _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
             else if (butttonType == typeof(ShopButton))
                 _audioService.PlaySound(_shopAudio.shopOpen);
             else if (butttonType == typeof(TongueButton))
@@ -48,7 +50,6 @@ namespace Services.Audio
         public void GameStart()
         {
             _audioService.PlaySound(_menuAudio.gameStart);
-            _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
         }
 
         public void ItemBought(IShopSlot shopSlot)
@@ -63,13 +64,33 @@ namespace Services.Audio
 
         public void SceneChanged(string sceneName)
         {
-            if (sceneName == SceneNames.Menu) 
+            if (sceneName == SceneNames.Menu)
             {
-                _menuAudio = ServiceLockator.instance.GetService<IThemeService>().selectedTheme.audio; 
+                _menuAudio = ServiceLockator.instance.GetService<IThemeService>().selectedTheme.audio;
                 _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
             }
             else if (sceneName == SceneNames.Shop)
                 _audioService.ChangeSoundtrack(_shopAudio.mainShopTheme);
+        }
+
+        public void ScoreAdd(int score)
+        {
+            if (score <= 0)
+                return;
+            else if (score < 3)
+                _audioService.PlaySound(_menuAudio.successAudio.one);
+            else if (score < 4)
+                _audioService.PlaySound(_menuAudio.successAudio.two);
+            else if (score < 5)
+                _audioService.PlaySound(_menuAudio.successAudio.three);
+            else if (score < 6)
+                _audioService.PlaySound(_menuAudio.successAudio.four);
+            else if (score < 7)
+                _audioService.PlaySound(_menuAudio.successAudio.five);
+            else if (score < 9)
+                _audioService.PlaySound(_menuAudio.successAudio.six);
+            else
+                _audioService.PlaySound(_menuAudio.successAudio.seven);
         }
     }
 }

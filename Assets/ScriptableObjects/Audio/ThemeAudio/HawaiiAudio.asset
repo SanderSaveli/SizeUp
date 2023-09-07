@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b29c3e92a515cc4d976364d1af2a05a, type: 3}
+  m_Name: HawaiiAudio
+  m_EditorClassIdentifier: 
+  _mainTheme: {fileID: 8300000, guid: 69e8d761bdfbde647af49da37e176397, type: 3}
+  _gameStart: {fileID: 8300000, guid: 79a077ece21d43f4f9056508cb75cbb3, type: 3}
+  _gameEnd: {fileID: 8300000, guid: f0bf2602148cefc42b913da80f0b75d5, type: 3}
+  _buttonClick: {fileID: 8300000, guid: b2ab1bd4b37e31e459579a3a883889eb, type: 3}
+  _successAudio: {fileID: 11400000, guid: 8f0001ad8a3099349beb8f637be65ab6, type: 2}

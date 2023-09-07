@@ -10,18 +10,21 @@ namespace ViewElements
         public AnimationClip showAnimation;
         public AnimationClip hideAnimation;
 
-        [SerializeField] private Image _frontTexture;
-        [SerializeField] private Image _shadow;
-        [SerializeField] private Image _icon;
+        [SerializeField] protected Image _frontTexture;
+        [SerializeField] protected Image _shadow;
+        [SerializeField] protected Image _icon;
 
-        private Animation _animation;
+        [SerializeField]private Animation _animation;
 
         private Coroutine _currentAnimationCallbackCorutine;
         private Action<bool> _currentAnimationCallback;
 
-        private void OnEnable()
+        protected void OnEnable()
         {
-            _animation = GetComponent<Animation>();
+            if(_animation == null) 
+            {
+                _animation = GetComponent<Animation>();
+            }
             _animation.AddClip(showAnimation, "Show");
             _animation.AddClip(hideAnimation, "Hide");
         }
@@ -64,8 +67,8 @@ namespace ViewElements
                 if(callback != null) 
                 {
                     UpdateAnimationCallback(_animation.clip, callback);
-                    InvokeAfterDelay(_animation.clip.length, InverseSetActiveAllChildren);
                 }
+                InvokeAfterDelay(_animation.GetClip("Hide").length, InverseSetActiveAllChildren);
             }
             else 
             {
@@ -104,6 +107,7 @@ namespace ViewElements
 
         private void InverseSetActiveAllChildren(bool state) 
         {
+            Debug.Log("gg");
             SetActiveAllChildren(!state);
         }
     }

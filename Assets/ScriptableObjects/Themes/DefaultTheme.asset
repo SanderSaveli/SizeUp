@@ -25,4 +25,5 @@ MonoBehaviour:
   _backgroundThemePrisets:
     _background: {fileID: -294846403, guid: 8811ab73923f0f14388cb0a6b6b61f69, type: 3}
     _figureColor: {r: 0.6509804, g: 0, b: 0, a: 1}
+    _scoreColor: {r: 0.9528302, g: 0.79850894, b: 0.34517616, a: 1}
   _audio: {fileID: 11400000, guid: 5d2e08744c18ccb43953be6bc78d0eb4, type: 2}

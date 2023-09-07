@@ -19,10 +19,11 @@ MonoBehaviour:
     _buttonColor: {r: 0.38576004, g: 0.6379477, b: 0.8113208, a: 1}
     _iconColor: {r: 0.7156283, g: 0.86659503, b: 0.8679245, a: 1}
   _enemyThemePresets:
-    _enemyBall: {fileID: 958777072, guid: c91ed83ad040fbc4186260861eada223, type: 3}
+    _enemyBall: {fileID: -1027082061, guid: c91ed83ad040fbc4186260861eada223, type: 3}
   _playerThemePresets:
-    _playerBall: {fileID: -1027082061, guid: c91ed83ad040fbc4186260861eada223, type: 3}
+    _playerBall: {fileID: 958777072, guid: c91ed83ad040fbc4186260861eada223, type: 3}
   _backgroundThemePrisets:
     _background: {fileID: 1445632718, guid: c91ed83ad040fbc4186260861eada223, type: 3}
-    _figureColor: {r: 0.77278394, g: 0.89152384, b: 0.8962264, a: 1}
-  _audio: {fileID: 11400000, guid: 5d2e08744c18ccb43953be6bc78d0eb4, type: 2}
+    _figureColor: {r: 0.6228551, g: 0.75532, b: 0.764151, a: 1}
+    _scoreColor: {r: 1, g: 1, b: 1, a: 1}
+  _audio: {fileID: 11400000, guid: 8b935eeaadd05944fbfce0337826c472, type: 2}

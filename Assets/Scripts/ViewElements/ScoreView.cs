@@ -3,23 +3,32 @@ using Services.Economic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreView : MonoBehaviour
-{
-    [SerializeField] private TMP_Text _scoreText;
-    private IScoreService _scoreService;
-    private void OnEnable()
+namespace ViewElements 
+{ 
+    public class ScoreView : ThemeChanged
     {
-        _scoreService = ServiceLockator.instance.GetService<IScoreService>();
-        _scoreService.OnCurrentGameScoreChanged += ChangeScore;
-    }
+        [SerializeField] private TMP_Text _scoreText;
+        private IScoreService _scoreService;
+        private void OnEnable()
+        {
+            _scoreService = ServiceLockator.instance.GetService<IScoreService>();
+            _scoreService.OnCurrentGameScoreChanged += ChangeScore;
+        }
 
-    private void OnDisable()
-    {
-        _scoreService.OnCurrentGameScoreChanged -= ChangeScore;
-    }
+        private void OnDisable()
+        {
+            _scoreService.OnCurrentGameScoreChanged -= ChangeScore;
+        }
 
-    private void ChangeScore(int score) 
-    {
-        _scoreText.text = score.ToString();
+        private void ChangeScore(int score) 
+        {
+            _scoreText.text = score.ToString();
+        }
+
+        public override void ChangeTheme(Theme theme)
+        {
+            _scoreText.color = theme.BackgroundTheme.scoreColor;
+        }
     }
 }
+

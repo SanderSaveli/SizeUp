@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b29c3e92a515cc4d976364d1af2a05a, type: 3}
+  m_Name: SimpleBlackAudio
+  m_EditorClassIdentifier: 
+  _mainTheme: {fileID: 8300000, guid: 88a57c9f1e1a49843a4c8c7305b8adbb, type: 3}
+  _gameStart: {fileID: 8300000, guid: f82c297721824f349abe2d8de63c3b4e, type: 3}
+  _gameEnd: {fileID: 8300000, guid: 5a777f7074045f345aa68b682937138f, type: 3}
+  _buttonClick: {fileID: 8300000, guid: 7738ba88d3a7c6a459022cd84f18f69b, type: 3}
+  _successAudio: {fileID: 11400000, guid: 8f0001ad8a3099349beb8f637be65ab6, type: 2}

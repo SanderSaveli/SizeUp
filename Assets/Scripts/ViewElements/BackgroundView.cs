@@ -7,7 +7,7 @@ namespace ViewElements
     {
         public override void ChangeTheme(Theme theme)
         {
-            gameObject.GetComponent<Image>().sprite = theme.BackgroundTheme.Background;
+            gameObject.GetComponent<Image>().sprite = theme.BackgroundTheme.background;
         }
     }
 }
