@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 146203539, guid: f1d684a75d72a584686b435efe02618f, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -313,6 +313,7 @@ MonoBehaviour:
   _frontTexture: {fileID: 2357426145064898037}
   _shadow: {fileID: 2707050057870335196}
   _icon: {fileID: 2521980871219464549}
+  _animation: {fileID: 0}
 --- !u!111 &373728430753148
 Animation:
   m_ObjectHideFlags: 0
@@ -396,7 +397,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 1724432948, guid: 69ffe46b2f2d7ef469bc0a4ca259fd59, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

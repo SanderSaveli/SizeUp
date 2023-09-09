@@ -8,6 +8,7 @@ namespace ViewElements.Button
     {
         protected override Type _buttonTupe => typeof(SettingsButton);
         [SerializeField] private List<Button> buttonsToShow;
+        [SerializeField] private SettingsButtonView _settingsView;
         private bool isMenuShowen = false;
 
         public override void Click()
@@ -16,13 +17,13 @@ namespace ViewElements.Button
             
             foreach(Button button in buttonsToShow) 
             {
-                Debug.Log(button);
                 if (isMenuShowen)
                     button.Hide();
                 else
                     button.Show();
             }
             isMenuShowen = !isMenuShowen;
+            _settingsView.Click();
         }
 
         public override void Hide()

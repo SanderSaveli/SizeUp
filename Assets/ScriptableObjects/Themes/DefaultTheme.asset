@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c7f53f27e6661488ae3785c363e99c, type: 3}
   m_Name: DefaultTheme
   m_EditorClassIdentifier: 
-  <price>k__BackingField: 0
+  <price>k__BackingField: 120
   <potrait>k__BackingField: {fileID: -120435746, guid: 8811ab73923f0f14388cb0a6b6b61f69,
     type: 3}
   _buttonThemePresets:

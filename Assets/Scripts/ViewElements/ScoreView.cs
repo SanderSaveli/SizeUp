@@ -27,7 +27,7 @@ namespace ViewElements
 
         public override void ChangeTheme(Theme theme)
         {
-            _scoreText.color = theme.BackgroundTheme.scoreColor;
+            _scoreText.color = theme.BackgroundTheme.currentScoreColor;
         }
     }
 }

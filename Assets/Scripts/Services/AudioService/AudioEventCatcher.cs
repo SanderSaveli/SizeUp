@@ -69,8 +69,10 @@ namespace Services.Audio
                 _menuAudio = ServiceLockator.instance.GetService<IThemeService>().selectedTheme.audio;
                 _audioService.ChangeSoundtrack(_menuAudio.mainTheme);
             }
-            else if (sceneName == SceneNames.Shop)
+            else if (sceneName == SceneNames.Shop) 
+            {
                 _audioService.ChangeSoundtrack(_shopAudio.mainShopTheme);
+            }
         }
 
         public void ScoreAdd(int score)

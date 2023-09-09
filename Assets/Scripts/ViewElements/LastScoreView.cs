@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ViewElements
 {
-    public class LastScoreView : MonoBehaviour
+    public class LastScoreView : ThemeChanged
     {
         [SerializeField] private TMP_Text _scoreText;
         [SerializeField] private Animation _animation;
@@ -25,6 +25,11 @@ namespace ViewElements
         {
             _scoreText.text = score.ToString();
             _animation.Play();
+        }
+
+        public override void ChangeTheme(Theme theme)
+        {
+            _scoreText.color = theme.BackgroundTheme.inscriptionsColor;
         }
     }
 }

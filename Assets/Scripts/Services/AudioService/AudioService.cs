@@ -30,6 +30,7 @@ namespace Services.Audio
         {
             GameObject audioObj = new GameObject("Audio");
             _audioSource = audioObj.AddComponent<AudioSource>();
+            _audioSource.loop = true;
             GameObject.DontDestroyOnLoad(audioObj);
             _eventCatcher = new AudioEventCatcher(this, _database);
             if (!_storegeService.HasKey(_audioKey)) 

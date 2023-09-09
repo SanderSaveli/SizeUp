@@ -30,6 +30,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 62213724, guid: 55727795516342c4e872bbecd2c2b3f1,
         type: 3}
+    - target: {fileID: 2521980871219464549, guid: a0c2555616cfc684a889349dc563c917,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2521980872818804868, guid: a0c2555616cfc684a889349dc563c917,
         type: 3}
       propertyPath: m_Name
@@ -192,6 +197,7 @@ MonoBehaviour:
   _frontTexture: {fileID: 4167576483915662684}
   _shadow: {fileID: 4391055278805652597}
   _icon: {fileID: 4296036090114113996}
+  _animation: {fileID: 0}
   onIcon: {fileID: 62213724, guid: 55727795516342c4e872bbecd2c2b3f1, type: 3}
   offIcon: {fileID: 1549384557, guid: 55727795516342c4e872bbecd2c2b3f1, type: 3}
 --- !u!114 &4167576483915662684 stripped

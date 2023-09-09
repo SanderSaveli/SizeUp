@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f99f9fad02e4df48962bd83c213a48b, type: 3}
   m_Name: Shop Audio
   m_EditorClassIdentifier: 
-  _mainShopTheme: {fileID: 8300000, guid: 2dccd101362065e40ac707a7c913a9ad, type: 3}
+  _mainShopTheme: {fileID: 8300000, guid: 3c05fe0a0dc7121438d6aa72e57d4949, type: 3}
   _buy: {fileID: 8300000, guid: 567449d7fc82abb4da04fed811c2b346, type: 3}
   _selection: {fileID: 8300000, guid: 7c910504bfe469a418cdf09528154d2a, type: 3}
   _changeTongue: {fileID: 0}
   _shopOpen: {fileID: 8300000, guid: 2dccd101362065e40ac707a7c913a9ad, type: 3}
-  _shopClosed: {fileID: 0}
+  _shopClosed: {fileID: 8300000, guid: 7738ba88d3a7c6a459022cd84f18f69b, type: 3}

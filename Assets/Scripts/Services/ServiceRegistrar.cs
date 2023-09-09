@@ -18,7 +18,6 @@ namespace Services
             ServiceLockator lockator = ServiceLockator.instance;
 
             lockator.RegisterService<IGameStateService>(new GameStateManager());
-            lockator.RegisterService<IGameStateService>(new GameStateManager());
             lockator.RegisterService<IStoregeService>(new JSONToFileStorageService());
             lockator.RegisterService<ISceneLoadService>(new SceneLoader());
             lockator.RegisterService<IScoreService>(new GameScoreService());

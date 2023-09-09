@@ -9,6 +9,7 @@ namespace ViewElements.Button
         protected override Type _buttonTupe => typeof(ShopButton);
         public override void Click()
         {
+            base.Click();
             ServiceLockator.instance.GetService<ISceneLoadService>().
                 LoadScene(SceneNames.Shop);
         }

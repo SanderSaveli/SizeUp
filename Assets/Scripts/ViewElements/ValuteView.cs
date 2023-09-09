@@ -5,9 +5,9 @@ using TMPro;
 
 namespace ViewElements 
 { 
-    public class ValuteView : MonoBehaviour
+    public class ValuteView : ThemeChanged
     {
-        [SerializeField] private TMP_Text _valuteText;
+        [SerializeField] protected TMP_Text _valuteText;
         private IBankService _bank;
         private void OnEnable()
         {
@@ -24,6 +24,11 @@ namespace ViewElements
         private void ChangeValute(int score)
         {
             _valuteText.text = score.ToString();
+        }
+
+        public override void ChangeTheme(Theme theme)
+        {
+            _valuteText.color = theme.BackgroundTheme.inscriptionsColor;
         }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace ViewElements
@@ -14,22 +16,30 @@ namespace ViewElements
         [SerializeField] protected Image _shadow;
         [SerializeField] protected Image _icon;
 
-        [SerializeField]private Animation _animation;
+        [SerializeField]protected Animation _animation;
 
-        private Coroutine _currentAnimationCallbackCorutine;
-        private Action<bool> _currentAnimationCallback;
+        private Coroutine _currentAnimationCallbackCorutine = null;
+        private List<Action<bool>> _currentAnimationCallbacks;
+
+        private const string _showName = "Show";
+        private const string _hideName = "Hide";
 
         protected void OnEnable()
         {
+            _currentAnimationCallbacks = new List<Action<bool>>();
             if(_animation == null) 
             {
                 _animation = GetComponent<Animation>();
             }
-            _animation.AddClip(showAnimation, "Show");
-            _animation.AddClip(hideAnimation, "Hide");
+            _animation.AddClip(showAnimation, _showName);
+            _animation.AddClip(hideAnimation, _hideName);
         }
         public void Show(Action<bool> callback = null) 
         {
+            if(_animation.GetClip(_showName) == null) 
+            {
+                OnEnable();
+            }
             SetActiveAllChildren(true);
             PlayShowAnimation(callback);
         }
@@ -47,12 +57,14 @@ namespace ViewElements
 
         private void PlayShowAnimation(Action<bool> callback = null) 
         {
-            if (_animation.Play("Show")) 
+            if (_animation.Play(_showName)) 
             {
-                if(callback != null) 
+                List<Action<bool>> callBackList = new();
+                if (callback != null)
                 {
-                    UpdateAnimationCallback(_animation.clip, callback);
+                    callBackList.Add(callback);
                 }
+                UpdateAnimationCallbacks(_animation.GetClip("Show"), callBackList);
             }
             else 
             {
@@ -62,13 +74,15 @@ namespace ViewElements
 
         private void PlayHideAnimation(Action<bool> callback = null)
         {
-            if (_animation.Play("Hide")) 
+            if (_animation.Play(_hideName)) 
             {
+                List<Action<bool>> callBackList = new(); 
                 if(callback != null) 
                 {
-                    UpdateAnimationCallback(_animation.clip, callback);
+                    callBackList.Add(callback);
                 }
-                InvokeAfterDelay(_animation.GetClip("Hide").length, InverseSetActiveAllChildren);
+                callBackList.Add(InverseSetActiveAllChildren);
+                UpdateAnimationCallbacks(_animation.GetClip(_hideName), callBackList);
             }
             else 
             {
@@ -76,25 +90,34 @@ namespace ViewElements
             }
         }
 
-        private void UpdateAnimationCallback(AnimationClip clip, Action<bool> action) 
+        private void UpdateAnimationCallbacks(AnimationClip clip, List<Action<bool>> actions) 
         {
-            if(_currentAnimationCallback != null) 
+            if (clip == null)
+                return;
+            if(_currentAnimationCallbacks != null) 
             {
-                _currentAnimationCallback?.Invoke(false);
-                StopCoroutine(_currentAnimationCallbackCorutine);
-                _currentAnimationCallback = null;
-                _currentAnimationCallbackCorutine = null;
+                foreach(Action<bool> callBack in _currentAnimationCallbacks) 
+                {
+                    callBack?.Invoke(false);
+                    StopCoroutine(_currentAnimationCallbackCorutine);
+                }
+                if(_currentAnimationCallbackCorutine != null)
+                    StopCoroutine(_currentAnimationCallbackCorutine);
             }
             _currentAnimationCallbackCorutine =
-                    StartCoroutine(InvokeAfterDelay(clip.length, action));
-            _currentAnimationCallback = action;
+                    StartCoroutine(InvokeAfterDelay(clip.length, actions));
+            _currentAnimationCallbacks = actions;
         }
-        protected IEnumerator InvokeAfterDelay(float delayInSeconds, Action<bool> action) 
+        protected IEnumerator InvokeAfterDelay(float delayInSeconds, List<Action<bool>> actions) 
         {
             yield return new WaitForSeconds(delayInSeconds);
-            _currentAnimationCallback = null;
+            _currentAnimationCallbacks = null;
             _currentAnimationCallbackCorutine = null;
-            action?.Invoke(true);
+
+            foreach (Action<bool> callBack in actions)
+            {
+                callBack?.Invoke(true);
+            }
         }
 
         private void SetActiveAllChildren(bool state) 
@@ -107,8 +130,10 @@ namespace ViewElements
 
         private void InverseSetActiveAllChildren(bool state) 
         {
-            Debug.Log("gg");
-            SetActiveAllChildren(!state);
+            if(state) 
+            {
+                SetActiveAllChildren(!state);
+            }
         }
     }
 }
