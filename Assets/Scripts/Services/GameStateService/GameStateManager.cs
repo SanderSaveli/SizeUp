@@ -9,7 +9,10 @@ namespace Services.GameState
         {
             if (currentGameState != newGameMode)
             {
-                currentGameState?.Exit();
+                if(currentGameState != null) 
+                {
+                    currentGameState?.Exit();
+                }
                 newGameMode.Enter();
                 currentGameState = newGameMode;
             }

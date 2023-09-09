@@ -53,6 +53,7 @@ namespace Services
 
         private IService CreateNullService<T>() where T : IService
         {
+            return default(T);
             var type = typeof(T);
             if (type == typeof(IAudioService))
                 return new NullAudioService();

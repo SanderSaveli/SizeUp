@@ -36,7 +36,7 @@ namespace ViewElements
         }
         public void Show(Action<bool> callback = null) 
         {
-            if(_animation.GetClip(_showName) == null) 
+            if (_animation.GetClip(_showName) == null)
             {
                 OnEnable();
             }

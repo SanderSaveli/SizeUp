@@ -10,10 +10,10 @@ namespace Services.GameState
         private List<Button> _menuButton = new List<Button>();
         public void Enter()
         {
+            Button[] b = GameObject.FindObjectsOfType<Button>();
             Button[] buttonsToEnable =
-                GameObject.FindObjectsOfType<Button>()
+                b
                 .Where(it => it.GetComponent<IMainMenuButton>()!= null).ToArray();
-
             foreach (Button button in buttonsToEnable)
             {
                 button.Show();
